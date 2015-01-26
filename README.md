@@ -6,7 +6,6 @@ github.io 는 static html 을 github 에 올리면 자동으로 호스팅을 해
 
 ## 이용 방법
 nrise.github.io 를 클론 받은 후에 직접 html 을 수정해서 push 해도 되긴 하지만
-
 그 원시적인 방법으로 작업을 할 거면 이거 안썼지...다음과 같은 절차로 이용하면 된다.
 
 1\. nrise.github.io 를 클론 받는다.
