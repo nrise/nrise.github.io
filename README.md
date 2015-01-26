@@ -1,10 +1,12 @@
 # 모씨 개발 수첩
 ## 개요
 github.io 는 static html 을 github 에 올리면 자동으로 호스팅을 해 주는 서비스이다.
+
 자세한 내용은 [여기](http://github.io/)를 참고한다.
 
 ## 이용 방법
 nrise.github.io 를 클론 받은 후에 직접 html 을 수정해서 push 해도 되긴 하지만
+
 그 원시적인 방법으로 작업을 할 거면 이거 안썼지...다음과 같은 절차로 이용하면 된다.
 
 1\. nrise.github.io 를 클론 받는다.
@@ -30,6 +32,7 @@ $ jekyll serve
  * 파일의 첫 부분엔 Front Matter 내용이 들어가야 한다. jekyll 이 해석하기 위한 기본 정보들이다. 다른 것들은 몰라도 layout 과 title 은 반드시 들어가야 한다. [이곳](https://raw.githubusercontent.com/nrise/nrise.github.io/master/_posts/2015-01-26-hello.md) 을 참고하라.
 
 2\. 해당 마크다운 파일을 에디터로 작성한다. [Sublime Text 2](http://www.sublimetext.com/2) 나 웹 기반의 [stackedit.io](https://stackedit.io/) 를 추천한다. 마크다운 문법은 [이곳](https://guides.github.com/features/mastering-markdown/) 을 참고한다.
+
 3\. 작성이 완료되면 저장 후 로컬에서 결과물을 확인한다.
 ```bash
 $ jekyll serve
