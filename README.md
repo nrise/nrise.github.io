@@ -37,3 +37,7 @@ $ jekyll serve
 $ jekyll serve
 ```
 4\. 수정사항을 커밋하고 푸시하면 몇 초 내외로 사이트에 반영된다.
+
+## 참고
+* [jekyll](http://jekyllrb.com/), [jekyll 한글문서](http://jekyllrb-ko.github.io/)
+* [markdown](http://nolboo.github.io/blog/2014/04/15/how-to-use-markdown/)
