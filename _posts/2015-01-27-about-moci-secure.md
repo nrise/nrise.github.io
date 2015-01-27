@@ -1,7 +1,6 @@
 ---
 layout:     post
 title:      모씨의 익명성과 보안
-date:       2015-01-27 00:00:00
 summary:    모씨가 제공하는 보안과 익명성에 대해 이야기 합니다.
 categories:
 ---
