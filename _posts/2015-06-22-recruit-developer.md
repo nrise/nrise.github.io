@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      모씨 팀에서 개발자를 찾습니다.
+title:      모씨 팀에서 개발자를 구합니다.
 summary:    모씨 팀의 첫 공개채용을 진행합니다.
 categories:
 ---
