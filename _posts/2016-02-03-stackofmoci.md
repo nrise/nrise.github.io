@@ -22,7 +22,7 @@ AWS 에서는 굉장히 많은 종류의 서비스를 제공하는데요, 가급
 서비스 초기에 AWS 에 대해 자세히 알지 못하는 상태로 시스템을 구성 
 하였다가 [EC2 의 CPU credit](http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/t2-instances.html#t2-instances-cpu-credits) 
 과 [EBS 의 IOPS limit](http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/EBSVolumeTypes.html) 
-에 부딫혀 낭패를 겪은 적이 몇 번 있었습니다. 특히 메인 
+에 부딪혀 낭패를 겪은 적이 몇 번 있었습니다. 특히 메인 
 데이터베이스의 EBS  IOPS limit 문제가 터졌을 때는 정말 멘붕(?) 
 이었었는데요, 상용 서비스를 구축할 때는 반드시 관련 문서들을 참고
 하여 저희와 같은 삽을 뜨지 않기를 바랍니다.
