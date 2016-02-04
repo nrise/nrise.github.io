@@ -228,9 +228,13 @@ WSGI 구현체로는 uWSGI 를 이용합니다. uWSGI 는 WSGI 구현체 중
 
 ### RabbitMQ
 Celery 의 Broker 로 최초에 redis 를 이용하였으나, 트래픽 급증과
-함께 안정성 문제가 몇 번 발생하여 RabbitMQ 클러스터를 구성 하였습니다.
-RabbitMQ 는 초당 수백 메가바이트의 트래픽을 안정적으로 소화
-하고 있습니다.
+함께 안정성 문제가 몇 번 발생하여 RabbitMQ 클러스터를 구성
+하였습니다. 실제로 redis 는 트래픽이 적을 경우 RabbitMQ 의
+Broker 로써 충분한 성능을 냅니다만, 트래픽이 커질 때에는
+redis 의 in-memory database 특성이 오히려 불안함으로 느껴지곤
+합니다. RabbitMQ 클러스터는 초당 수백 메가바이트의 트래픽을
+안정적으로 소화하며 단 한 번의 장애 없이 안정적으로 Brokering
+을 해 주고 있습니다.
 
 ### LoadBalancing/AutoScale
 어플리케이션 서버는 AWS ELB 로 트래픽을 분산 처리 합니다. 
