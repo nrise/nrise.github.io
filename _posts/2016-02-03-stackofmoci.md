@@ -208,16 +208,17 @@ PostgreSQL 데이터베이스는 SQLAlchemy 와 Alembic 을 통해
 구성되어 있고, 관리 시스템은 최대한 높은 생산성을 보장해
 주는 풀 스택 프레임워크를 도입한 셈입니다.
 
-WSGI 구현체로는 uWSGI 를 이용합니다. 설정이 복잡하긴 하지만,
-Gunicorn 도 사용해 본 결과 성능 상으로 uWSGI 가 더 앞서는
+WSGI 구현체로는 uWSGI 를 이용합니다. uWSGI 는 WSGI 구현체 중
+가장 앞선 성능을 가진 것으로 알려져 있습니다. 실제로 Gunicorn
+역시 사용해 본 적이 있었는데요, 성능 상으로 uWSGI 가 더 앞서는
 것 같습니다. 모씨 서비스의 특수성인지는 잘 모르겠는데 uWSGI
 설정 시 thread 를 비활성화 시키고 process 를 늘리는 것이 성능
-향상에 큰 도움이 되었습니다. 다만 process 별 수행 성능 편차를
+향상에 큰 도움이 되었습니다. 그 외에 process 별 수행 성능 편차를
 최대한 막기 위해서 gevent loop engine 설정을 적용하였습니다.
 
 다양한 비동기 작업 및 지연 작업, 캐시-데이터베이스 간 동기화
-작업을 위해 celery 가 많은 곳에서 사용되고 있습니다. celery
-역시 concurrency pool 로 gevent 설정을 적용된 상태입니다.
+작업을 위해 Celery 가 많은 곳에서 사용되고 있습니다. Celery
+역시 concurrency pool 로 gevent 를 적용된 상태입니다.
 
 모든 uWSGI 는 Nginx 로 reverse proxying 되어 최종적으로 서비스
 됩니다.
