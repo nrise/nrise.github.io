@@ -221,7 +221,7 @@ WSGI 구현체로는 uWSGI 를 이용합니다. uWSGI 는 WSGI 구현체 중
 
 다양한 비동기 작업 및 지연 작업, 캐시-데이터베이스 간 동기화
 작업을 위해 Celery 가 많은 곳에서 사용되고 있습니다. Celery
-역시 concurrency pool 로 gevent 를 적용된 상태입니다.
+역시 concurrency pool 로 gevent 를 적용하여 운용 중입니다.
 
 모든 uWSGI 는 Nginx 로 reverse proxying 되어 최종적으로 서비스
 됩니다.
