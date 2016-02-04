@@ -43,7 +43,7 @@ AWS 에서는 굉장히 많은 종류의 서비스를 제공하는데요, 가급
 EC2 에서 사용 가능한 Ubuntu 14.04 에는 ixgbevf 모듈이 2.11.3-k
 가 설치되어 있습니다. [관련 문서](http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/enhanced-networking.html)
 에 따르면 2.14.2 를 설치할 경우 최적의 성능을 발휘할 수
-있다고 명시되어 있습니다만, 현재 커널과의 충돌이 발생하여
+있다고 명시되어 있습니다만, 커널과의 충돌이 발생하여
 설치가 되지 않습니다. 현재 Canonical 사와 함께 커널 패치를
 진행 중이라고 하니 Ubuntu 16.04 LTS 에서 최신 ixgbevf 모듈이
 번들링 되기를 기대해 봅니다.
