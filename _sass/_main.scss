@@ -14,7 +14,8 @@
 */
 
 body {
-  font-family: 'Nanum Barun Gothic';
+  font-family: 'Spoqa Han Sans';
+  font-weight: 200;
 }
 
 html, body {
@@ -59,7 +60,7 @@ body {
 
 .site-header a {
   color: #333;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .site-header nav a {
@@ -157,7 +158,7 @@ table {
 
 .post-link .post-title {
   margin-top: 0;
-  font-weight: 600;
+  font-weight: 400;
   color: #333;
 }
 
@@ -177,8 +178,8 @@ table {
 .pagination,
 .button {
   font-size: 1rem;
-  font-family: 'Nanum Barun Gothic';
-  font-weight: 300;
+  font-family: 'Spoqa Han Sans';
+  font-weight: 400;
   text-align: center;
 }
 
@@ -214,7 +215,7 @@ table {
 .post-meta {
   width: auto;
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 400;
   margin: 0;
   padding: .25em 0;
   color: #7a7a7a;
@@ -223,7 +224,7 @@ table {
 
 .pagination .button {
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 1px;
 }
 
@@ -240,8 +241,8 @@ table {
 }
 
 form {
-  font-family: 'Nanum Barun Gothic';
-  font-weight: 300;
+  font-family: 'Spoqa Han Sans';
+  font-weight: 400;
   font-size: 1rem;
 }
 
@@ -250,7 +251,7 @@ textarea.input {
 }
 
 p {
-  font-weight: 300;
+  font-weight: 200;
   line-height: 1.5;
   color: #333;
 }
@@ -307,8 +308,8 @@ h5,
 .h5,
 h6,
 .h6 {
-  font-family: 'Nanum Barun Gothic';
-  font-weight: 900;
+  font-family: 'Spoqa Han Sans';
+  font-weight: 400;
   line-height: 1.2;
   margin: 1em 0 0.5em;
 }
@@ -494,8 +495,8 @@ footer,
 footer .wrap {
   color: #7a7a7a;
   background-color: #fafafa;
-  font-family: 'Nanum Barun Gothic';
-  font-weight: 300;
+  font-family: 'Spoqa Han Sans';
+  font-weight: 400;
   clear: both;
 }
 
