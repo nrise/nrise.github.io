@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      스케치로 디자인 하기. 
+title:      스케치로 디자인 하기
 summary:    포토샵을 보내고 스케치로 모씨를 디자인 한 경험에 대해 이야기 합니다.
 categories:
 ---
