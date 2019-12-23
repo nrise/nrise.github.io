@@ -4,6 +4,7 @@
     {{ partial "link.html" . }}
 
     <p class="p-copyright">
+	Powered by <a href="https://gohugo.io/">hugo</a>.<br />
 	{{ with replace .Site.Copyright "{year}" now.Year | safeHTML }}
         {{ . }}
       {{ else }}
