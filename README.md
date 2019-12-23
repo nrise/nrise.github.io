@@ -13,10 +13,12 @@ $ brew install hugo
 ```
 
 ## 저장소 클론
-github 저장소를 클론 받습니다.
+github 저장소를 클론 받습니다. 또한 theme 서브모듈들도 클론 받습니다.
 
 ```bash
 $ git clone git@github.com:nrise/nrise.github.io.git
+$ cd nrise.github.io
+$ git submodule update --init
 ```
 
 ## 서버 실행
