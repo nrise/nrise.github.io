@@ -44,3 +44,13 @@ $ hugo new posts/my-first-post.md  # my-first-post.md 파일이 생성됩니다.
 * 단어 사이는 - 문자를 사용합니다.
 
 생성된 파일은 markdown 문법으로 게시물을 작성하면 됩니다.
+
+# 글 발행
+작성한 글을 발행하기 위해서는 먼저 작성한 글의 상단 메타 정보에 draft 를 false 로 변경해야 합니다.
+변경 후 hugo 로 페이지를 새로 빌드 후 github 에 push 하면 게시물 발행이 완료됩니다.
+
+```bash
+$ hugo  # 게시물 빌드
+$ git commit -a -m "commit message"
+$ git push
+```
