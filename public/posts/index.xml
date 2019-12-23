@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on NRISE ENGINEERING BLOG</title>
+    <link>https://nrise.github.io/posts/</link>
+    <description>Recent content in Posts on NRISE ENGINEERING BLOG</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <copyright>Copyright 2011-{year} NRISE, Inc. All rights reserved.</copyright>
+    <lastBuildDate>Thu, 08 Sep 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://nrise.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>스케치로 디자인 하기</title>
+      <link>https://nrise.github.io/posts/sketch-app/</link>
+      <pubDate>Thu, 08 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://nrise.github.io/posts/sketch-app/</guid>
+      <description>포토샵을 보내고 스케치로 모씨를 디자인 한 경험에 대해 이야기 합니다.</description>
+    </item>
+    
+    <item>
+      <title>PostgreSQL 업그레이드 이야기</title>
+      <link>https://nrise.github.io/posts/upgrade-database/</link>
+      <pubDate>Fri, 19 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://nrise.github.io/posts/upgrade-database/</guid>
+      <description>PostgreSQL 과 EBS 에 관한 이야기입니다.</description>
+    </item>
+    
+    <item>
+      <title>Skia Python 적용기</title>
+      <link>https://nrise.github.io/posts/skia/</link>
+      <pubDate>Fri, 01 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://nrise.github.io/posts/skia/</guid>
+      <description>이번에 새로 적용한 Skia 라이브러리에 대해 이야기 합니다.</description>
+    </item>
+    
+    <item>
+      <title>안녕하세요, 모씨팀입니다.</title>
+      <link>https://nrise.github.io/posts/hello-moci/</link>
+      <pubDate>Fri, 08 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://nrise.github.io/posts/hello-moci/</guid>
+      <description>모씨 운영팀의 업무에 대해 이야기 합니다.</description>
+    </item>
+    
+    <item>
+      <title>모씨 서비스 구성에 대해</title>
+      <link>https://nrise.github.io/posts/stack-of-moci/</link>
+      <pubDate>Wed, 03 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://nrise.github.io/posts/stack-of-moci/</guid>
+      <description>모씨 아키텍쳐에 대해서 이야기 합니다.</description>
+    </item>
+    
+    <item>
+      <title>모씨의 새로운 국면.</title>
+      <link>https://nrise.github.io/posts/aspect-of-moci/</link>
+      <pubDate>Mon, 16 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://nrise.github.io/posts/aspect-of-moci/</guid>
+      <description>모씨는 모두를 만족시킬 수 있을까요?</description>
+    </item>
+    
+    <item>
+      <title>모씨의 3개월. 그리고 앞으로.</title>
+      <link>https://nrise.github.io/posts/future-of-moci/</link>
+      <pubDate>Fri, 18 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://nrise.github.io/posts/future-of-moci/</guid>
+      <description>모씨의 지난 3개월과 미래에 대해서 이야기 합니다.</description>
+    </item>
+    
+    <item>
+      <title>모씨, 시작의 끝</title>
+      <link>https://nrise.github.io/posts/end-of-begin/</link>
+      <pubDate>Fri, 29 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://nrise.github.io/posts/end-of-begin/</guid>
+      <description>1,000,000 명의 회원과 함께하게 되었습니다.</description>
+    </item>
+    
+    <item>
+      <title>모씨 안정화에 대하여</title>
+      <link>https://nrise.github.io/posts/maintanence/</link>
+      <pubDate>Sat, 23 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://nrise.github.io/posts/maintanence/</guid>
+      <description>최근 급격히 성장한 모씨에 대해서 이야기 합니다.</description>
+    </item>
+    
+    <item>
+      <title>모씨, 개발, 6개월</title>
+      <link>https://nrise.github.io/posts/moci-dev-6-months/</link>
+      <pubDate>Fri, 01 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://nrise.github.io/posts/moci-dev-6-months/</guid>
+      <description>모씨를 개발한 6개월의 시간을 되짚어 봅니다.</description>
+    </item>
+    
+    <item>
+      <title>모씨의 악동들</title>
+      <link>https://nrise.github.io/posts/bad-boy-of-moci/</link>
+      <pubDate>Mon, 09 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://nrise.github.io/posts/bad-boy-of-moci/</guid>
+      <description>모씨의 블라인드에 대한 고민, 그리고 숫자들.</description>
+    </item>
+    
+    <item>
+      <title>모씨와 함께 한 100일</title>
+      <link>https://nrise.github.io/posts/moci-history-100-days/</link>
+      <pubDate>Tue, 17 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://nrise.github.io/posts/moci-history-100-days/</guid>
+      <description>모씨에서는 어떠한 일이 일어나고 있는가?</description>
+    </item>
+    
+    <item>
+      <title>모씨가 생각한 익명, 그리고 에피소드</title>
+      <link>https://nrise.github.io/posts/moci-anonymous-and-episode/</link>
+      <pubDate>Fri, 06 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://nrise.github.io/posts/moci-anonymous-and-episode/</guid>
+      <description>모씨가 생각하는 익명에 대한 두 번째 이야기 입니다.</description>
+    </item>
+    
+    <item>
+      <title>모씨의 익명성과 보안</title>
+      <link>https://nrise.github.io/posts/about-moci-secure/</link>
+      <pubDate>Tue, 27 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://nrise.github.io/posts/about-moci-secure/</guid>
+      <description>모씨가 제공하는 보안과 익명성에 대해 이야기 합니다.</description>
+    </item>
+    
+  </channel>
+</rss>
