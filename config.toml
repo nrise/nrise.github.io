@@ -9,3 +9,4 @@ publishdir = "."
  ga_api_key = "UA-56246190-2"
  favicon = "images/favicon.ico"
  custom_css = ["/css/custom.css", ]
+ github = "nrise"
