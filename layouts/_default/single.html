@@ -20,7 +20,7 @@
   {{ end }}
   <section id="js-article" class="p-article__body">
     {{ .Content }}
-	<div class="fb-comments" data-href="https://nrise.github.io" data-width="100%" data-numposts="10"></div>
+	<div class="fb-comments" data-href="{{ .Permalink }}" data-width="100%" data-numposts="10"></div>
   </section>
   <footer>
     {{ with ($.Param "disqus") }}
