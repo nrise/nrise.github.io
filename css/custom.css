@@ -4,6 +4,6 @@ article section a, body footer a {
 
 @media (max-width: 600px) {
 	.p-title {
-		font-size: 3.0rem;
+		font-size: 3.3rem;
 	}
 }
