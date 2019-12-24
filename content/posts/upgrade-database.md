@@ -1,10 +1,8 @@
 ---
 layout:     post
 title:      PostgreSQL 업그레이드 이야기 
-summary:    PostgreSQL 과 EBS 에 관한 이야기입니다.
 date: 2016-08-19
-draft: true
-categories:
+draft: false
 ---
 ## 시작
 모씨의 메인 데이터베이스는 [PostgreSQL](/posts/stack-of-moci/) 입니다.

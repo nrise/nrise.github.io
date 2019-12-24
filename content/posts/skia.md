@@ -1,9 +1,7 @@
 ---
 layout: post
 title: Skia Python 적용기
-summary: 이번에 새로 적용한 Skia 라이브러리에 대해 이야기 합니다.
 date: 2016-07-01
-categories:
 ---
 ## Skia 와의 첫 만남
 [모씨 서버 아키텍쳐](/posts/stack-of-moci/)는 기본적으로 Python + Flask 로 구성되어 있으며,

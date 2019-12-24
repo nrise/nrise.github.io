@@ -26,7 +26,8 @@
   
   <meta name="generator" content="Hugo 0.61.0" /><link rel="stylesheet" href="https://nrise.github.io/css/style.css" />
   
-  
+  <link rel="stylesheet" href="https://nrise.github.io/css/custom.css">
+  <link rel='icon' type='image/x-icon' href="https://nrise.github.io/images/favicon.ico" />
   
   <script type="text/javascript" src="https://nrise.github.io/js/bundle.js"></script>
   
@@ -58,8 +59,33 @@
     </p>
   </header>
   <div class="c-article__summary">
-    포토샵을 보내고 스케치로 모씨를 디자인 한 경험에 대해 이야기 합니다.
+    모씨 디자인 팀은 8월 초 CTO의 추천으로 스케치를 디자인 주류 도구로 사용하게 되었습니다. 추천을 받은 순간에는 크게 기대하지 않았습니다. 새롭게 등장하는 디자인 프로그램들이 대부분 와이어-프레임(Wire-Frame)이나 목업(mock-up) 제작 도구 수준을 넘지 못하는 경우가 많았기 때문입니다. 하지만 하루 동안 조사하고 테스트한 결과는 &lsquo;그저 그럴 것이다!&rsquo; 라는 예상을 깼고, 도리어 많은 기대를 하게 되었습니다. 그래서 가장 애용해왔던 포토샵을 멀리하고 스케치 중심의 디자인 작업 환경을 만들기로 했습니다.
+모씨 디자인 리소스는 Adobe CCT 프로그램을 이용해 PSD, AI, SVG 파일로 관리하고 있었습니다.
   </div>
+  
+  <a href="https://nrise.github.io/posts/sketch-app/" class="c-article__btn p-list-article__btn">Read more</a>
+  
+</article>
+
+
+
+
+<article class="c-article p-list-article">
+  <header>
+    <h2 class="c-title c-article__title"><a href="https://nrise.github.io/posts/upgrade-database/">PostgreSQL 업그레이드 이야기</a></h2>
+    <p class="c-article__meta">
+      Posted on
+      <time datetime="2016-08-19T00:00:00Z">
+        Aug 19, 2016
+      </time>
+    </p>
+  </header>
+  <div class="c-article__summary">
+    시작 모씨의 메인 데이터베이스는 PostgreSQL 입니다. 대부분의 데이터는 이곳에서 저장, 관리되고 있는데요, 최근에 데이터베이스 운용과 관련된 이슈가 발생하여 문제를 해결하는 과정에 대해 이야기를 해 보고자 합니다.
+문제 인식 최근에 간헐적으로 데이터베이스의 커넥션이 꽉 차면서 서비스가 짧은 시간 느려지거나 멈추는 현상이 보고되기 시작 하였습니다. 흔히들 말하는 &lsquo;렉&rsquo; 이라고 하죠. 그동안 쌓아올린 코드들에 문제가 있지 않을까 몇 번 검토도 해 보고, 쿼리의 문제인 것 같아서 쿼리도 분석을 해 보았습니다만 별 다른 복잡한 쿼리를 사용하지 않고 있었기에 원인을 파악하기가 쉽지 않았습니다.
+  </div>
+  
+  <a href="https://nrise.github.io/posts/upgrade-database/" class="c-article__btn p-list-article__btn">Read more</a>
   
 </article>
 
@@ -77,8 +103,11 @@
     </p>
   </header>
   <div class="c-article__summary">
-    이번에 새로 적용한 Skia 라이브러리에 대해 이야기 합니다.
+    Skia 와의 첫 만남 모씨 서버 아키텍쳐는 기본적으로 Python + Flask 로 구성되어 있으며, 그 중 카드 생성 프로세스는 Celery 와 ImageMagick + Wand 로 구성되어 있습니다.
+모씨를 방문하는 이용자들은 매일 수 백만장의 카드를 업로드 합니다. 실제 모씨가 오픈한 2014년 11월 이후 약 1년 6개월이 넘는 동안 이용자들이 업로드한 카드는 약 4억장에 이릅니다. 이용자들간의 주요 소통 수단이 카드인 만큼 카드 업로드 관련 코드는 꽤나 중요한 부분입니다만 별 탈 없이 안정적으로 운용되어 왔기에 크게 개선의 필요성을 느끼지 못하고 있던 상황이었습니다.
   </div>
+  
+  <a href="https://nrise.github.io/posts/skia/" class="c-article__btn p-list-article__btn">Read more</a>
   
 </article>
 
@@ -96,46 +125,11 @@
     </p>
   </header>
   <div class="c-article__summary">
-    모씨 아키텍쳐에 대해서 이야기 합니다.
+    2016년 새해가 벌써 한 달이 지났습니다. 2014년 11월 1일에 오픈한 모씨 서비스도 하루가 다르게 바뀌고, 성장하고 있습니다. 오늘은 그 동안 미루어 두었던 모씨 서비스를 구성하는 시스템에 대해 이야기를 해볼까 합니다. 실제로 많은 분들께서 모씨 시스템 구성에 대해 궁금해 하시고, 몇몇 분들은 직접 사무실에 오셔서 문의를 주신 적도 있었습니다. 지난 1년 3개월동안 발전해 온 시스템 구성에 대해 알아보도록 하겠습니다.
+Hosting 모씨는 AWS EC2 를 사용합니다. 저희가 상주하는 곳은 도쿄 리전이며, 여러 사정으로 인하여 서울 리전으로 이주할 계획은 현재 없습니다.
   </div>
   
-</article>
-
-
-
-
-<article class="c-article p-list-article">
-  <header>
-    <h2 class="c-title c-article__title"><a href="https://nrise.github.io/posts/aspect-of-moci/">모씨의 새로운 국면.</a></h2>
-    <p class="c-article__meta">
-      Posted on
-      <time datetime="2015-11-16T00:00:00Z">
-        Nov 16, 2015
-      </time>
-    </p>
-  </header>
-  <div class="c-article__summary">
-    모씨는 모두를 만족시킬 수 있을까요?
-  </div>
-  
-</article>
-
-
-
-
-<article class="c-article p-list-article">
-  <header>
-    <h2 class="c-title c-article__title"><a href="https://nrise.github.io/posts/future-of-moci/">모씨의 3개월. 그리고 앞으로.</a></h2>
-    <p class="c-article__meta">
-      Posted on
-      <time datetime="2015-09-18T00:00:00Z">
-        Sep 18, 2015
-      </time>
-    </p>
-  </header>
-  <div class="c-article__summary">
-    모씨의 지난 3개월과 미래에 대해서 이야기 합니다.
-  </div>
+  <a href="https://nrise.github.io/posts/stack-of-moci/" class="c-article__btn p-list-article__btn">Read more</a>
   
 </article>
 
@@ -153,27 +147,12 @@
     </p>
   </header>
   <div class="c-article__summary">
-    1,000,000 명의 회원과 함께하게 되었습니다.
+    익명 (匿名) [잉명] [명사] 이름을 숨김. 또는 숨긴 이름이나 그 대신 쓰는 이름. (출처 : 국립 국어원)
+모씨를 시작하기 전, 우리가 생각하는 인터넷에서의 &ldquo;익명&quot;이란 늘 부정적인 단어의 표상이었습니다. 또한 &ldquo;익명 기반의 서비스&quot;를 만든다는 것에 대한 주변 사람들의 생각 역시도 19금 내용으로 가득하거나 비하, 욕이 난무하는 공간을 만드는 것, 그 이상도 그 이하도 아니었습니다.
+그리고 사실대로 말하면, 모씨는 세상 어디에도 없는 새로운 서비스는 아닙니다. 그러나 우리는 하루하루 치열한 고민을 하면서 우리만의 것으로 만들고, 모씨들과 함께 모씨만이 가지고 있는 철학을 만드는데 최선을 다 하고 있습니다.
   </div>
   
-</article>
-
-
-
-
-<article class="c-article p-list-article">
-  <header>
-    <h2 class="c-title c-article__title"><a href="https://nrise.github.io/posts/moci-history-100-days/">모씨와 함께 한 100일</a></h2>
-    <p class="c-article__meta">
-      Posted on
-      <time datetime="2015-02-17T00:00:00Z">
-        Feb 17, 2015
-      </time>
-    </p>
-  </header>
-  <div class="c-article__summary">
-    모씨에서는 어떠한 일이 일어나고 있는가?
-  </div>
+  <a href="https://nrise.github.io/posts/end-of-begin/" class="c-article__btn p-list-article__btn">Read more</a>
   
 </article>
 
@@ -191,8 +170,12 @@
     </p>
   </header>
   <div class="c-article__summary">
-    모씨가 생각하는 익명에 대한 두 번째 이야기 입니다.
+    #1 &lsquo;익명&rsquo; 에 대한 많은 이야기가 있습니다. 국내에서도 이미 인터넷 실명제로 인해 인터넷 서비스의 익명에 대한 많은 논의가 있었습니다. 그 결과로 2012년 8월, 인터넷 실명제는 결국 위헌으로 판결이 났지만, 국내에서는 여러가지 이유로 &lsquo;익명'이라는 단어는 많은 이에게 부정적인 단어로 인식되고 있습니다.
+사실, &lsquo;익명'의 역사는 꽤 오래되었습니다. 대표적인 역사적 사례만 보더라도, &lsquo;근대철학의 아버지&rsquo; 데카르트와 &lsquo;팡세'의 저자, 파스칼은 세상의 시선을 떠나 그들의 생각을 자유롭게 표현하고자 어떤 책들은 익명으로 출판하기도 하였습니다.
+또한 굳이 먼 시간의 사건을 찾지 않더라도 2004년, &ldquo;postsecret.
   </div>
+  
+  <a href="https://nrise.github.io/posts/moci-anonymous-and-episode/" class="c-article__btn p-list-article__btn">Read more</a>
   
 </article>
 
@@ -219,8 +202,9 @@
 
 
     <p class="p-copyright">
+	Powered by <a href="https://gohugo.io/">hugo</a>.<br />
 	
-        Copyright 2011-2019 NRISE, Inc. All rights reserved.
+        &copy; Copyright 2011-2019 NRISE, Inc. All rights reserved.
       
     </p>
   </footer>

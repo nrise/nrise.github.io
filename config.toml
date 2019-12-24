@@ -2,8 +2,10 @@ baseURL = "https://nrise.github.io/"
 languageCode = "ko-KR"
 title = "NRISE ENGINEERING BLOG"
 theme = "hugo_theme_pickles"
-copyright = "Copyright 2011-{year} NRISE, Inc. All rights reserved."
+copyright = "&copy; Copyright 2011-{year} NRISE, Inc. All rights reserved."
 publishdir = "."
 
 [params]
  ga_api_key = "UA-56246190-2"
+ favicon = "images/favicon.ico"
+ custom_css = ["/css/custom.css", ]
