@@ -130,7 +130,7 @@ re:Invent 컨퍼런스에 참여할 수 있는 소중한 기회도 얻을 수 �
 
 2020년에는 더 많은 소중한 분들을 모시고 더욱 더 성장하는 엔라이즈를 만들어 나가도록 하겠습니다.
 저희와 함께 하고 싶으신 분들은 언제든 저희
-[채용 페이지](https://www.rocketpunch.com/companies/enraijeu/jobs)를
+[채용 페이지](https://www.rocketpunch.com/companies/nrise/jobs)를
 보시고 주저없이 지원해 주세요!!
 
 2019년 한 해 엔라이즈 식구들 모두 수고 하셨습니다.
