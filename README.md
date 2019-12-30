@@ -36,7 +36,7 @@ nrise.github.io 저장소 하위 다음 디렉토리에 파일을 작성하면 �
 
 ```bash
 $ cd nrise.github.io
-$ hugo new posts/my-first-post.md  # my-first-post.md 파일이 생성됩니다.
+$ hugo new content/posts/my-first-post.md  # my-first-post.md 파일이 생성됩니다.
 ```
 
 파일 생성 시 명명 규칙은 다음과 같습니다.
