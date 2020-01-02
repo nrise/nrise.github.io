@@ -85,9 +85,9 @@ instance to a multi-threaded data store." - [원문](https://redis.io/topics/ben
 * 내결함성(Fault tolerance)이 극도로 뛰어납니다[^3]. 이는 RabbitMQ 의 특징이라기 보다
 Erlang 언어의 특징이기도 합니다. 실제로 RabbitMQ 서버의 안정성에 대해 충분히 느끼고 있었기 때문에
 신뢰가 갔습니다.
-* 별도의 저장소 등의 외부 의존성이 없습니다. 내장된 [Mnesia](https://erlang.org/doc/man/mnesia.html)
+* 외부 의존성이 없습니다. 내장된 [Mnesia](https://erlang.org/doc/man/mnesia.html)
 및 [ETS](https://erlang.org/doc/man/ets.html), [DETS](https://erlang.org/doc/man/dets.html)
-모두 강력한 성능과 안정성을 자랑합니다. RabbitMQ 단일 서버만으로 구동이 가능한 점은 큰 장점을 가집니다.
+모두 강력한 성능과 안정성을 자랑합니다. 별도의 외부 의존성 없이 구동, 운용이 가능한 점은 큰 장점을 가집니다.
 * 이 역시 Erlang 의 특징이기도 한 부분입니다만, [동시성(Concurrency) 성능이 매우 뛰어납니다](https://erlang.org/doc/reference_manual/processes.html).
 따라서 비슷하게 동시성 성능이 뛰어나다면 굳이 단일 프로세스로 동작하는 Node.js 나 Python
 을 고려해야 할 이유가 사라지게 됩니다.
