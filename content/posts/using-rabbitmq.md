@@ -34,7 +34,7 @@ Python 으로 서버를 개발하는 분들 중 비동기 작업을 위해 [Cele
 오픈소스 소프트웨어입니다.
 
 우리는 서버 개발 언어로 Python 을 사용하고 있으며, [Celery 의 메시지 브로커](http://docs.celeryproject.org/en/latest/getting-started/brokers/index.html)
-로 RabbitMQ 를 선택하여 오랜 기간 운용해 왔었습니다. 많은 검토와 고민 끝에 RabbitMQ 를 서버-클라이언트
+로 RabbitMQ 를 선택하여 오랜 기간 운용해 왔습니다. 많은 검토와 고민 끝에 RabbitMQ 를 서버-클라이언트
 양방향 통신 수단으로 충분히 활용할 수 있겠다는 생각을 했었고, 성공적으로 적용하여 다양한 곳에서
 사용할 수 있게 되었습니다.
 
@@ -66,10 +66,11 @@ Node.js 나 Python 모두 기본적으로 단일 프로세스 기반으로 동�
 했던 것 같습니다. [참고](http://woowabros.github.io/woowabros/2017/09/12/realtime-service.html)
 
 ### Redis
-[Redis](https://redis.io/) 는 자체적인 Pub/Sub 모델을 지원합니다. Redis 의 Pub/Sub 을 이용하게 되면 WebSocket 서버
-에서 예상되던 문제점을 부분적으로 해결할 수 있습니다만, 여전히 단일 프로세스 기반 서버라는
-이슈는 해결이 되지 않습니다. 거기에 덧붙여 Redis 는 Single Threaded[^2] 형태로 동작하기 때문에
-대규모의 Pub/Sub 처리가 잘 될 수 있을지에 대한 보장이 없었습니다.
+[Redis](https://redis.io/) 는 [자체적인 Pub/Sub 모델을 지원합니다](https://redis.io/topics/pubsub).
+Redis 의 Pub/Sub 을 이용하게 되면 WebSocket 서버 에서 예상되던 문제점을 부분적으로 해결할 수
+있습니다만, 여전히 단일 프로세스 기반 서버라는 이슈는 해결이 되지 않습니다. 거기에 덧붙여
+Redis 는 Single Threaded[^2] 형태로 동작하기 때문에 대규모의 Pub/Sub 처리가 잘 될 수 있을지에
+대한 보장이 없었습니다.
 
 [^2]: "Redis is, mostly, a single-threaded server from the POV of commands execution 
 (actually modern versions of Redis use threads for different things). It is not designed
