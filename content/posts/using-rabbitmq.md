@@ -220,8 +220,8 @@ RabbitMQ 를 이용하여 서버-클라이언트 간 양방향 통신을 구현�
 
 역시 RabbitMQ 라는 소프트웨어 덕분일 것입니다.
 
-흥미가 느껴지나요? 만일 우리와 함께 재미있고 흥미로운 코드를 개발해 보시고 싶으시다면, 언제든지
-[채용 페이지](https://www.rocketpunch.com/companies/nrise/jobs) 를 보시고 주저없이 지원해 주세요!
+흥미가 느껴지나요? 만일 우리와 함께 재미있고 흥미로운 코드를 개발해 보고 싶다면 언제든지
+[채용 페이지](https://www.rocketpunch.com/companies/nrise/jobs) 를 보고 주저없이 지원해 주세요!
 
 감사합니다.
 
