@@ -92,7 +92,7 @@ Erlang 언어의 특징이기도 합니다. 실제로 RabbitMQ 서버의 안정�
 따라서 비슷하게 동시성 성능이 뛰어나다면 굳이 단일 프로세스로 동작하는 Node.js 나 Python
 을 고려해야 할 이유가 사라지게 됩니다.
 * 수평적 확장(Horizontal Scale Out) 이 쉽습니다. 여러 RabbitMQ 서버를 [클러스터로 묶어버릴 수도 있습니다](https://www.rabbitmq.com/clustering.html).
-* 준수한 성능을 보여줍니다. 초당 수만건의 메시지는 큰 문제 없이 전송이 가능합니다. [Apache Kafka](https://kafka.apache.org/)
+* 뛰어난 성능을 보여줍니다. 초당 수만건의 메시지는 큰 문제 없이 전송이 가능합니다. [Apache Kafka](https://kafka.apache.org/)
 정도의 성능은 아니겠습니다만 실 사용에는 전혀 문제가 없었습니다.
 * WebSocket/[STOMP](https://stomp.github.io/) 등의 웹 기반 소켓 프로토콜 역시 지원합니다.
 MOCI 와 WIPPY 모두 네이티브 앱이기에 당장은 필요 없을지라도 웹 기반 관리자 사이트에서 요긴하게 사용할 수 있습니다.
