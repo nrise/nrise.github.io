@@ -4,12 +4,17 @@
   
   <url>
     <loc>https://nrise.github.io/</loc>
-    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+    <lastmod>2020-01-02T12:13:58+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://nrise.github.io/posts/</loc>
-    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+    <lastmod>2020-01-02T12:13:58+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nrise.github.io/posts/using-rabbitmq/</loc>
+    <lastmod>2020-01-02T12:13:58+09:00</lastmod>
   </url>
   
   <url>
