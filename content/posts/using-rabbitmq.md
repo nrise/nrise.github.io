@@ -194,7 +194,7 @@ WIPPY 에는 '상단 알림' 이라는 기능이 존재합니다. 서버에서 �
 예를 들어 WIPPY 에 있는 '내 프로필 평가받기' 의 경우 특정 사용자가 나의 프로필을 조회할 경우 실시간으로
 진행률이 올라가야 하는 기능이 있습니다. 이 경우 양방향 통신을 이용하여 구현이 가능한 부분입니다.
 
-## 4. Signaling Messaging
+## 4. Signaling Server
 WIPPY 에는 보이스톡이라고 하는 [WebRTC](https://webrtc.org/) 기반의 음성 채팅 기능이 있습니다.
 WebRTC 의 경우 최초 두 Peer 가 연결을 하기 위해서는 중개자를 통해 [SDP(Session Description Protocol)](https://tools.ietf.org/html/rfc4566)
 와 [ICE Candidate](https://tools.ietf.org/id/draft-ietf-ice-rfc5245bis-14.html) 정보를 교환해야 합니다.
