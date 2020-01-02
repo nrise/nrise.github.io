@@ -153,7 +153,7 @@ MOCI 와 WIPPY 모두 네이티브 앱이기에 당장은 필요 없을지라도
 </ol>
 <p>이 예제 코드는 AMQP 서버에 연결하여 서버의 메시지를 기다리는 것을 구현한 간단한 안드로이드 예제입니다.(iOS 도 크게 다르지 않습니다.)
 주의할 점은 앱의 생명주기에 맞춰서 클라이언트의 AMQP 연결도 같이 활성/비활성화 처리가 되어야 하며,
-중복 연결을 방지하기 위해 Singleton Pattern 으로 동작하도록 설계하는 것이 좋습니다.</p>
+중복 연결을 방지하기 위해 Singleton Pattern 으로 설계하는 것이 좋습니다.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#75715e">// AMQPManager.kt
 </span><span style="color:#75715e"></span><span style="color:#75715e">// Android Client Example
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> com.rabbitmq.client.*
