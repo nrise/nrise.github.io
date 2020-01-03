@@ -15,7 +15,7 @@ WIPPY 는 Swift, Kotlin 으로 작성된 완전한 네이티브 앱[^1]이며, �
 통계 평균 99.4% 를 유지하고 있습니다. 또한 엔라이즈는 제품의 품질을 측정/분석 하는 QA 팀을
 별도로 두고 있지 않습니다.
 
-[^1]: WIPPY 와 MOCI 는 Web View 기반 혹은 React Native, Xamarin 등을 이용하지 않은, 순수하게 네이티브 코드로만 작성되어 있습니다.
+[^1]: WIPPY 와 MOCI 는 Web View 혹은 React Native, Xamarin 등을 이용하지 않은, 완전한 네이티브 코드로 작성되어 있습니다.
 
 오늘은 우리가 이렇게 움직일 수 있는 노하우들 중 하나인 Smoke Testing 에 대해 이야기 하려 합니다.
 
