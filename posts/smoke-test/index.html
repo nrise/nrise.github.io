@@ -65,7 +65,7 @@
   
   <section id="js-article" class="p-article__body">
     <h1 id="heading">들어가며</h1>
-<p>엔라이즈의 개발팀은 총 4명으로 구성되어 있으며, 그 중 한 명이 Android, 한 명이 iOS
+<p>엔라이즈의 개발 팀은 총 4명으로 구성되어 있으며, 그 중 한 명이 Android, 한 명이 iOS
 클라이언트를 담당합니다. 우리는 2019년 한 해 WIPPY 를 OS 별로 <strong>70여회</strong>
 이상 성공적으로 배포 할 수 있었습니다. 기간으로 나누어 본다면 1주일에 1회 이상 배포를 한 셈입니다.</p>
 <p><img src="/images/20200103/crash-free.png" alt=""></p>
@@ -80,7 +80,8 @@
 테스트를 통과했다고 보는 데서 유래한 용어입니다<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. Smoke Testing 에 대한 자세한 내용은
 <a href="https://en.wikipedia.org/wiki/Smoke_testing_(software)">이곳</a>을 참고하시기 바랍니다.</p>
 <h1 id="--">기존 테스팅의 문제점</h1>
-<p>Smoke Testing 을 도입하기 이전 엔라이즈의 제품 팀은 약 2년간 <a href="https://en.wikipedia.org/wiki/Regression_testing">회귀 테스팅(Regression Testing)</a>
+<p>Smoke Testing 을 도입하기 이전 엔라이즈의 제품 팀은 2014년 말부터 약 2년간
+<a href="https://en.wikipedia.org/wiki/Regression_testing">회귀 테스팅(Regression Testing)</a>
 을 도입하여 운용 중이었습니다. 회귀 테스팅을 진행하여 발생하던 문제점은 여러 가지가 있었는데, 다음과 같았습니다.</p>
 <ul>
 <li>회귀 오류 사례가 축적될 수록 테스팅에 오랜 시간이 걸렸습니다. 이는 더욱 빠른 제품 출시 주기를 통해 다양한
@@ -105,7 +106,7 @@
 </ul>
 <h1 id="---1">테스팅에 대한 고민</h1>
 <p>많은 고민을 하다 <a href="http://www.ecolemo.com/">이콜레모의 박영록 대표님</a>께 자문을 구하기로 결정 하였습니다.
-최초에는 회귀 테스팅을 자동화 하는 방법에 대한 고민으로 시작 하였으나 논의를 하다 보니 회귀 테스팅의 필요성
+처음에는 회귀 테스팅을 자동화 하는 방법에 대한 고민으로 시작 하였으나 논의를 하다 보니 회귀 테스팅의 필요성
 자체에 대한 검토로 변하게 되었습니다. 이유는 다음과 같습니다.</p>
 <h3 id="1----------">1. 회귀 테스팅은 케이스가 수집될 수록 생산성 저하는 피할 수 없다.</h3>
 <p>어찌 보면 당연한 것입니다. 만일 그럼에도 불구하고 회귀 테스팅을 도입해야 한다면 어떻게 해야 할까요?
