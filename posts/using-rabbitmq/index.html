@@ -72,7 +72,7 @@
 다양한 용도로 사용하고 있습니다. 우리의 사례를 소개함으로써 양방향 통신 구축을 고민하는
 분들에게 작게나마 도움이 될 수 있다면 좋을 것 같습니다.</p>
 <h3 id="---">양방향 통신이 필요한 이유</h3>
-<p>서버-클라이언트 간 양방향 통신 기능이 최초로 요구되던 시기는 2015년으로 거슬러 올라갑니다.</p>
+<p>서버-클라이언트 간 양방향 통신 기능이 최초로 요구되던 시기는 2016년으로 거슬러 올라갑니다.</p>
 <p>양방향 통신은 iOS/Android 에서 지원하는 푸시 메시지를 통해서도 부분적으로 구현할 수 있겠으나,
 이 경우 사용자가 푸시를 허용하지 않았을 경우 무용지물이 되는 단점이 존재합니다.
 만일 <a href="https://en.wikipedia.org/wiki/Polling_(computer_science)">Polling</a>
@@ -96,12 +96,11 @@
 <h1 id="-">솔루션 검토</h1>
 <p>최초 양방향 통신 시스템을 구축하기 위해 다양한 방법들을 고민해 보았습니다.</p>
 <h3 id="websocket">WebSocket</h3>
-<p>양방향 통신 설계로써 대표적으로 생각해 볼 만한 방법은 socket.io 를 위시한 WebSocket 서버를
-구축하여 서버-클라이언트 간 통신을 구현하는 것입니다. 하지만 다음 이유들로 인해
-최종적으로는 WebSocket 서버를 채택하지 않기로 결정하였습니다.</p>
+<p>양방향 통신 설계로써 대표적으로 생각해 볼 만한 방법은 <a href="https://socket.io/">socket.io</a> 를 위시한
+<a href="https://en.wikipedia.org/wiki/WebSocket">WebSocket</a> 서버를 구축하여 서버-클라이언트 간 통신을
+구현하는 것입니다. 하지만 다음 이유들로 인해 최종적으로는 WebSocket 서버를 채택하지 않기로 결정하였습니다.</p>
 <ul>
-<li>당시에는 만족할 만한 <a href="https://en.wikipedia.org/wiki/WebSocket">WebSocket</a>
-서버는 <a href="https://nodejs.org/">Node.js</a> 와 <a href="https://socket.io/">socket.io</a> 를 기반으로 서버를 구현하는 방법이
+<li>당시 만족할 만한 WebSocket 서버는 <a href="https://nodejs.org/">Node.js</a> 와 socket.io 를 기반으로 서버를 구현하는 방법이
 주류였는데, 이 경우 Python 으로 구현되어 있는 비즈니스 로직이 여러 곳으로 분산될 수 있는
 문제점이 예상 되었습니다. 현재 MOCI 와 WIPPY 는 단일체 구조(Monolithic Architecture) 로
 설계되어 있으며, 이 구조를 현재까지 유지하고 있는 이유에 대해서는 추후 다른 글을 통해
@@ -151,9 +150,9 @@ MOCI 와 WIPPY 모두 네이티브 앱이기에 당장은 필요 없을지라도
 <p>RabbitMQ 가 적용된 서버-클라이언트 간 양방향 통신이 위한 구성은 다음과 같습니다.</p>
 <p><img src="/images/20200102/architecture.png" alt=""></p>
 <ol>
-<li>클라이언트와 서버는 API 서버와 동기화(Synchronous)된 요청과 응답을 주고 받습니다.(그림 1)</li>
-<li>클라이언트는 RabbitMQ 서버와 AMQP 연결을 맺고 있습니다.(그림 2)</li>
-<li>서버에서 특정 클라이언트에 메시지를 전달하고자 할 때 RabbitMQ 를 통해 메시지를 Publish 하면 클라이언트는 해당 메시지를 받습니다.(그림 3, 2)</li>
+<li>클라이언트와 서버는 API 서버와 동기화(Synchronous)된 요청과 응답을 주고 받습니다.(항목 1)</li>
+<li>클라이언트는 RabbitMQ 서버와 AMQP 연결을 맺습니다.(항목 2)</li>
+<li>서버에서 특정 클라이언트에 메시지를 전달하고자 할 때 RabbitMQ 를 통해 메시지를 발행(Publish) 하면 클라이언트는 해당 메시지를 받습니다.(항목 3 -&gt; 2)</li>
 <li>클라이언트는 받은 메시지를 해석(Parsing)해서 취해야 할 행동을 합니다.</li>
 </ol>
 <p>이 예제 코드는 AMQP 서버에 연결하여 서버의 메시지를 기다리는 것을 구현한 간단한 안드로이드 예제입니다.(iOS 도 크게 다르지 않습니다.)
@@ -213,7 +212,7 @@ channel<span style="color:#f92672">.</span>basic_publish(
 <p>서버-클라이언트에 구축된 양방향 통신을 어떻게 사용하는지에 대한 활용 예를 소개하겠습니다.</p>
 <h2 id="1-">1. 채팅</h2>
 <p>WIPPY 에서 이용자들 간에 1:1 채팅, 혹은 단체 채팅을 할 때 사용됩니다. API Server 를 통해 채팅 메시지를
-보내면, 서버는 대화 수신자에게 RabbitMQ 서버를 통해 메시지를 Publishing 합니다. 클라이언트는 해당 메시지를
+보내면, 서버는 대화 수신자에게 RabbitMQ 서버를 통해 메시지를 발행 합니다. 클라이언트는 해당 메시지를
 즉각적으로 받아 처리하게 됩니다. 실제로 WIPPY 에서는 200 명 정도의 대화방을 테스트 해 보았을 때도 별도의
 최적화 없이 처리 가능했습니다. 그 외에 사용자가 채팅 리스트에 머무르고 있을 때 새로운 친구 요청이나,
 기존 친구들이 보내는 새로운 메시지들을 받아서 실시간으로 리스트를 갱신하고자 할 때 굉장히 유용하게
@@ -230,7 +229,7 @@ channel<span style="color:#f92672">.</span>basic_publish(
 WebRTC 의 경우 최초 두 Peer 가 연결을 하기 위해서는 중개자를 통해 <a href="https://tools.ietf.org/html/rfc4566">SDP(Session Description Protocol)</a>
 와 <a href="https://tools.ietf.org/id/draft-ietf-ice-rfc5245bis-14.html">ICE Candidate</a> 정보를 교환해야 합니다.
 이 경우 양방향 통신 서버를 이용하여 Signaling Server 의 역할을 수행하게 할 수 있습니다.</p>
-<p>이 외에도 WIPPY 와 MOCI 에서는 다양한 목적으로 RabbitMQ 를 통한 양방향 통신을 활용하고 있습니다.</p>
+<p>이 외에도 WIPPY 와 MOCI 모두 다양한 목적으로 RabbitMQ 를 통한 양방향 통신을 활용하고 있습니다.</p>
 <h1 id="heading-1">마치며</h1>
 <p>RabbitMQ 를 이용하여 서버-클라이언트 간 양방향 통신을 구현함으로써 WIPPY 와 MOCI 서비스에 많은 재미있는
 기능과 실시간을 강조하는 기능들을 성공적으로 추가할 수 있었습니다. 물론 우리가 구현한 방법이 Best Practice
