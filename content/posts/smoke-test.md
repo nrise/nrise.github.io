@@ -30,7 +30,7 @@ in which the device passed the test if it did not catch fire (or smoked) the fir
 [원문](http://softwaretestingfundamentals.com/smoke-testing/)
 
 # 기존 테스팅의 문제점
-Smoke Testing 을 도입하기 이전 엔라이즈의 제품 팀은 약 2년간 [회귀 테스팅(Regressiong Testing)](https://en.wikipedia.org/wiki/Regression_testing)
+Smoke Testing 을 도입하기 이전 엔라이즈의 제품 팀은 약 2년간 [회귀 테스팅(Regression Testing)](https://en.wikipedia.org/wiki/Regression_testing)
 을 도입하여 운용 중이었습니다. 회귀 테스팅을 진행하여 발생하던 문제점은 여러 가지가 있었는데, 다음과 같았습니다.
 
 * 회귀 오류 사례가 축적될 수록 테스팅에 오랜 시간이 걸렸습니다. 이는 더욱 빠른 제품 출시 주기를 통해 다양한
