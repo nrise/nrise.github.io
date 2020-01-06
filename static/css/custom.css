@@ -1,9 +1,0 @@
-article section a, body footer a {
-	text-decoration: underline;
-}
-
-@media (max-width: 600px) {
-	.p-title {
-		font-size: 3.3rem;
-	}
-}
