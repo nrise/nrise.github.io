@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-KR</language>
     <copyright>&amp;copy; Copyright 2011-{year} NRISE, Inc. All rights reserved.</copyright>
-    <lastBuildDate>Fri, 03 Jan 2020 11:49:43 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jan 2020 11:52:10 +0900</lastBuildDate>
     
 	<atom:link href="https://nrise.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>빠르고 안정적인 앱 배포의 노하우(2) - 일정 추정</title>
+      <link>https://nrise.github.io/posts/planning/</link>
+      <pubDate>Mon, 06 Jan 2020 11:52:10 +0900</pubDate>
+      
+      <guid>https://nrise.github.io/posts/planning/</guid>
+      <description>지난 글 에서 저는 Smoke Testing 을 통해 엔라이즈의 개발 팀이 신속하고 핵심적인 테스트를 통하여 빠르고 안정적인 앱 배포 사례를 소개 하였습니다. 이번 글에서는 우리가 정확한 일정 추정을 위해 어떤 노력을 기울이는지 이야기 해 볼까 합니다.
+정확한 일정 추정을 위하여 일반적으로 한 번의 배포를 위해 수행하는 개발 과정은 다음과 같습니다.
+가설 수립 - 기획 - 디자인 - 개발 - 테스트 - 배포 - 분석
+엔라이즈 제품 팀은 이 일련의 과정에서 일정의 불확실성이 가장 높은 단계를 개발 과 테스트 로 판단하고 있습니다.</description>
+    </item>
     
     <item>
       <title>빠르고 안정적인 앱 배포의 노하우(1) - Smoke Testing</title>
