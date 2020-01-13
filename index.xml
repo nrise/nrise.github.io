@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-KR</language>
     <copyright>&amp;copy; Copyright 2011-{year} NRISE, Inc. All rights reserved.</copyright>
-    <lastBuildDate>Thu, 09 Jan 2020 11:57:04 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jan 2020 15:21:05 +0900</lastBuildDate>
     
 	<atom:link href="https://nrise.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[번역] 잘가요, 클린 코드(Goodbye, Clean Code)</title>
+      <link>https://nrise.github.io/posts/goodbye-cleancode/</link>
+      <pubDate>Mon, 13 Jan 2020 15:21:05 +0900</pubDate>
+      
+      <guid>https://nrise.github.io/posts/goodbye-cleancode/</guid>
+      <description>최근 Dan Abramov 가 최근 자신의 블로그에 &amp;ldquo;Goodbye, Clean Code&amp;rdquo; 를 발행 하였습니다. 저는 이 글이 번역할 만한 가치가 있다고 생각하여 한국어로 번역을 하게 되었습니다. 도움을 주신 Glen 님께 감사의 말을 전합니다.
+ 늦은 저녁이었습니다.
+나의 동료가 방금 일주일 동안 작성한 코드를 체크 인 하였습니다. 우리는 그래픽 편집기 캔버스를 만들고 있었고, 가장자리의 작은 손잡이를 드래그하여 직사각형이나 타원형 같은 모양을 리사이즈 하는 기능을 구현하였습니다.
+그 코드는 동작했습니다.
+그러나 반복적이었습니다. (직사각형이나 타원형과 같은) 각 모양은 다른 손잡이 세트를 가지며, 각 손잡이를 다른 방향으로 드래그 하면 모양의 위치와 크기가 다른 방식으로 영향 받습니다.</description>
+    </item>
     
     <item>
       <title>빠르고 안정적인 앱 배포의 노하우(3) - 의사 소통</title>
