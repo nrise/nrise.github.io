@@ -75,7 +75,7 @@
 가장자리의 작은 손잡이를 드래그하여 직사각형이나 타원형 같은 모양을 리사이즈 하는 기능을 구현하였습니다.</p>
 <p>그 코드는 동작했습니다.</p>
 <p>그러나 반복적이었습니다. (직사각형이나 타원형과 같은) 각 모양은 다른 손잡이 세트를 가지며, 각 손잡이를 다른
-방향으로 드래그 하면 모양의 위치와 크기가 다른 방식으로 영향 받습니다. 만일 사용자가 쉬프트 키를 누르고 있을 경우,
+방향으로 드래그 하면 모양의 위치와 크기가 다른 방식으로 영향을 받습니다. 만일 사용자가 쉬프트 키를 누르고 있을 경우,
 리사이즈 되는 동안 비율이 유지되어야 합니다. 많은 계산이 있었습니다.</p>
 <p>그 코드는 대략 이렇습니다:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">Rectangle</span> <span style="color:#f92672">=</span> {
@@ -196,7 +196,7 @@
 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">Oval</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createBox</span>(<span style="color:#a6e22e">Shapes</span>.<span style="color:#a6e22e">Oval</span>, <span style="color:#a6e22e">fourSides</span>);
 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">Header</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createBox</span>(<span style="color:#a6e22e">Shapes</span>.<span style="color:#a6e22e">Rectangle</span>, <span style="color:#a6e22e">twoSides</span>);
 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">TextBox</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createBox</span>(<span style="color:#a6e22e">Shapes</span>.<span style="color:#a6e22e">Rectangle</span>, <span style="color:#a6e22e">fourCorners</span>);
-</code></pre></div><p>코드는 전체의 절반이고, 중복은 완전히 사라졌습니다! 이제 깔끔합니다. 만일 우리가 특정 방향이나
+</code></pre></div><p>코드는 원래의 절반이 되었고, 중복은 완전히 사라졌습니다! 이제 깔끔합니다. 만일 우리가 특정 방향이나
 모양에 대한 동작을 변경하려면, 모든 곳의 메소드를 수정하는 대신 한 곳에서 하면 됩니다.</p>
 <p>벌써 늦은 밤입니다(시간 가는 줄 몰랐습니다). 나는 내 리팩토링 결과를 마스터에 체크 인 하고 잠자리에
 들었으며, 동료의 지저분한 코드를 푼 것이 자랑스러웠습니다.</p>
@@ -234,7 +234,7 @@
 코드 작성과 <a href="https://overreacted.io/optimized-for-change/">수정</a>이 정확히 어떤 영향을 끼치나요?</p>
 <p>예전의 나는 확실히 그것들에 대해 깊이 생각하지 않았습니다. 나는 코드가 어떻게 <em>보일 지</em> 많이 생각 했습니다 —
 하지만 나약한 사람들로 이루어진 팀과 어떻게 <em>진화</em> 했는지에 대해선 생각하지 않았습니다.</p>
-<p>코딩은 여행입니다. 당신의 코드 첫 줄에서 지금 당신의 위치까지 얼마나 멀리 왔는지 생각해 보세요. 함수를 추출하거나
+<p>코딩은 여행입니다. 당신이 처음 작성한 코드 한 줄로부터 지금의 자신까지 얼마나 멀리 왔는지 생각해 보세요. 함수를 추출하거나
 클래스를 리팩토링하여 복잡한 코드를 단순하게 만드는 방법을 처음 알았을 때 당신은 정말 기뻤을 게 분명합니다.
 당신의 결과물이 자랑스럽다면, 깔끔한 코드를 추구하는 유혹에 빠지게 될 것입니다. 당분간은 클린 코드를 계속 하세요.</p>
 <p>하지만 거기서 멈추지 마세요. 클린 코드의 광신도가 되지 마세요. 클린 코드는 목표가 아닙니다. 그것은 우리가
