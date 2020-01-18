@@ -141,7 +141,7 @@ Erlang 언어의 특징이기도 합니다. 실제로 RabbitMQ 서버의 안정�
 <li>뛰어난 성능을 보여줍니다. 초당 수만건의 메시지는 큰 문제 없이 전송이 가능합니다. <a href="https://kafka.apache.org/">Apache Kafka</a>
 정도의 성능은 아니겠습니다만 실 사용에는 전혀 문제가 없었습니다.</li>
 <li>WebSocket/<a href="https://stomp.github.io/">STOMP</a> 등의 웹 기반 소켓 프로토콜 역시 지원합니다.
-MOCI 와 WIPPY 모두 네이티브 앱이기에 당장은 필요 없을지라도 웹 기반 관리자 사이트에서 요긴하게 사용할 수 있습니다.</li>
+MOCI 와 WIPPY 모두 네이티브 앱이기에 당장은 필요 없을지라도 웹 앱에서 요긴하게 사용할 수 있습니다.</li>
 <li>RabbitMQ 는 다양한 언어로 개발 라이브러리를 제공합니다. 만일 iOS/Android 클라이언트 라이브러리가 없었다면
 연동하기가 쉽지 않을 것입니다.</li>
 </ul>
@@ -225,12 +225,12 @@ channel<span style="color:#f92672">.</span>basic_publish(
 메시지를 받아 상단 알림을 노출해 주는 기능입니다. 이 역시 양방향 통신을 이용하면 손쉽게 구현이 가능합니다.</p>
 <h2 id="3----">3. 각종 진행 상황 알림</h2>
 <p>예를 들어 WIPPY 에 있는 &lsquo;내 프로필 평가받기&rsquo; 의 경우 특정 사용자가 나의 프로필을 조회할 경우 실시간으로
-진행률이 올라가야 하는 기능이 있습니다. 이 경우 양방향 통신을 이용하여 구현이 가능한 부분입니다.</p>
+진행률이 올라가는 기능이 있습니다. 이 경우 양방향 통신을 이용하여 구현이 가능한 부분입니다.</p>
 <h2 id="4-signaling-server">4. Signaling Server</h2>
 <p>WIPPY 에는 보이스톡이라고 하는 <a href="https://webrtc.org/">WebRTC</a> 기반의 음성 채팅 기능이 있습니다.
 WebRTC 의 경우 최초 두 Peer 가 연결을 하기 위해서는 중개자를 통해 <a href="https://tools.ietf.org/html/rfc4566">SDP(Session Description Protocol)</a>
 와 <a href="https://tools.ietf.org/id/draft-ietf-ice-rfc5245bis-14.html">ICE Candidate</a> 정보를 교환해야 합니다.
-이 경우 양방향 통신 서버를 이용하여 Signaling Server 의 역할을 수행하게 할 수 있습니다.</p>
+이 경우 이미 구현된 양방향 통신을 이용하여 Signaling Server 의 역할을 수행하게 할 수 있습니다.</p>
 <p>이 외에도 WIPPY 와 MOCI 모두 다양한 목적으로 RabbitMQ 를 통한 양방향 통신을 활용하고 있습니다.</p>
 <h1 id="heading-1">마치며</h1>
 <p>RabbitMQ 를 이용하여 서버-클라이언트 간 양방향 통신을 구현함으로써 WIPPY 와 MOCI 서비스에 많은 재미있는
