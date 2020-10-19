@@ -202,7 +202,7 @@ maintenance_work_mem 의 값은 서버 메모리 1GB 당 50MB 를 할당하는 �
 autovacuum_max_workers 는 변경 시 PostgreSQL 서버의 재시작을 필요로 하므로 Autovacuum 의 동작을 꾸준히 모니터링하며 신중히 변경하는 것이 좋습니다.</p>
 <h2 id="vacuum-과-autovacuum-의-차이">Vacuum 과 Autovacuum 의 차이</h2>
 <p>수동 Vacuum 과 Autovacuum 의 가장 큰 차이점은 해당 테이블에 lock 을 유발하는 지 여부입니다. 이 차이가 또 다른 차이를 만들어 내는데요,
-Autovacuum 의 경우 vacuuming 이 꾸준히 잘 일어나고 있다 하더라도 디스크 저장 용량이 줄어들거나 하는 일은 일어나지 않습니다. 그에 반해
+Autovacuum 의 경우 vacuuming 이 꾸준히 잘 수행되고 있다 하더라도 디스크 저장 용량이 줄어들거나 하는 일은 일어나지 않습니다. 그에 반해
 수동으로 Full Vacuum 을 수행할 경우 FSM 을 재설정 하기 때문에 확실한 디스크 저장 용량 감소 효과를 볼 수 있습니다.</p>
 <p>이에 대한 대안으로 <a href="https://reorg.github.io/pg_repack/">pg_repack</a> 이라는 확장 모듈이 있긴 합니다. 이 모듈을 이용해서 특정 테이블을 repack 을 하게 되면
 해당 테이블의 복제본을 새로 생성한 후 테이블을 교체하는 작업을 진행하기 때문에 운용 중인 데이터베이스에서도 사용할 수는 있습니다. 하지만
