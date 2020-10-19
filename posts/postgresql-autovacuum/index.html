@@ -125,7 +125,7 @@ XID 가 임계점에 도달할 경우 강제로 동작하므로 이번 글에서
 <p>이런 상황들을 종합적으로 고려했을 때 발생할 수 있는 문제점은 다음과 같습니다.</p>
 <ul>
 <li>Autovacuum 의 동작 여부를 결정하는 인자 중 autovacuum_vacuum_scale_factor 는 특정 테이블의 live tuple 대비 dead tuple 의 비율을 계산합니다.</li>
-<li>비율 기반으로 Autovacuum 이 동작하기 때문에 테이블의 레코드가 커질수록 처리해야 할 dead tuple 의 수가 비율적으로 급증하게 됩니다. 10만건의 테이블이라면 2만 개의 dead tuple 이 생성될 때 Autovacuum 이 동작하지만, 1억건의 테이블이라면 2천만건의 dead tuple 이 생성 되고서야 Autovacuum 이 동작하게 됩니다.</li>
+<li>비율 기반으로 Autovacuum 이 동작하기 때문에 테이블의 레코드가 커질수록 처리해야 할 dead tuple 의 수가 비율적으로 급증하게 됩니다. 10만건의 레코드를 가진 테이블이라면 2만 개의 dead tuple 이 생성될 때 Autovacuum 이 동작하지만, 1억건의 레코드를 가진 테이블이라면 2천만건의 dead tuple 이 생성 되고서야 Autovacuum 이 동작하게 됩니다.</li>
 <li>dead tuple 이 어느 한도 이상으로 증가하게 될 경우, 그에 맞추어 다양한 추가적인 설정들<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>이 이루어져야 하는데, 그러지 못할 경우 Autovacuum 이 진행되다가 dead tuple 을 모두 처리하지 못하고 중단이 될 수 있습니다.</li>
 <li>결과적으로 Autovacuum 이 동작하는데도 불구하고 dead tuple 이 줄어들지 않거나 오히려 증가하게 될 수 있습니다.</li>
 <li>이는 저장소의 불필요한 증가 문제와 더불어 데이터베이스 성능의 전반적인 하락으로 이어집니다.</li>
