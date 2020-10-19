@@ -95,8 +95,7 @@ XID 가 임계점에 도달할 경우 강제로 동작하므로 이번 글에서
 <ul>
 <li>PostgreSQL 의 MVCC 구현체는 update/delete 트랜잭션이 일어날 때 dead tuple 을 남기게 됩니다.</li>
 <li>이 dead tuple 을 정리하기 위해 Vacuum 이라는 task 가 만들어지게 되었습니다.</li>
-<li>Vacuum 명령어는 수동으로 구동 됩니다.</li>
-<li>또한 Vacuum 은 테이블 단위로 동작하며, Vacuum 이 수행중일 때 해당 테이블은 lock 이 걸리며 모든 트랜잭이 거부됩니다.</li>
+<li>Vacuum 명령어는 수동으로 구동 됩니다. 그리고 Vacuum 이 수행중일 때 해당 테이블은 lock 이 걸리며 모든 트랜잭이 거부됩니다.</li>
 <li>위와 같은 이유로 테이블에 lock 을 걸지 않으면서, 정기적으로, 그리고 자동으로 vacuuming 을 수행하는 Autovacuum 을 필요로 하게 됩니다.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></li>
 </ul>
 <h2 id="dead-tuple-이-만들어내는-이슈들에-관하여">Dead Tuple 이 만들어내는 이슈들에 관하여</h2>
