@@ -211,11 +211,13 @@ repack 을 수행할 때 repack 시작 때와 종료 때 순단현상이 발생�
 <a href="https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.html#Appendix.PostgreSQL.CommonDBATasks.pg_repack">AWS RDS 문서</a>
 에도 pg_repack 에 대한 소개가 나와 있는데 이런 경고가 없는 점은 분명 아쉬운 점입니다.</p>
 <h2 id="마치며">마치며</h2>
-<p>엔라이즈 개발 팀은 PostgreSQL 의 Autovacuum 을 최적화 하며 많은 성능적 이득을 얻을 수 있었습니다. 우리가 여러 해 PostgreSQL 을 운용하며 얻은 결론은
-PostgreSQL 에서 Autovacuum 에 대한 개념을 이해하는 것은 매우 중요하다, 라는 것이었습니다. 이는 완전 관리형 데이터베이스(<a href="https://aws.amazon.com/ko/rds/aurora">AWS Aurora</a>,
-<a href="https://aws.amazon.com/ko/rds/">AWS RDS</a> 등) 를 사용한다고 하더라도 전혀 달라지지 않습니다.<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup> 또한 제공하는 서비스마다 데이터베이스가 운용되는
-환경이 천차만별이므로 이렇게 하면 좋다! 라는 정답도 없기에 Autovacuum 을 꾸준히 모니터링하고 최적화 하는 것은 매우 중요하다고 생각합니다. 이번 글이
-PostgreSQL 을 운용하시는 분들에게 작게나마 도움이 되었으면 합니다.</p>
+<p>일반적으로 PostgreSQL 을 최초 설치 후에 서버의 CPU, 메모리 사양에 맞추어 캐시나 버퍼 사이즈, 사용할 코어 수 등의 설정을 진행하게 됩니다.
+하지만 Autovacuum 과 관련된 설정들은 데이터베이스를 운용하며 발생하는 다양한 환경에 맞추어 설정을 진행해야 하며, 이 와중에 많은 시행착오를 겪게 됩니다.</p>
+<p>엔라이즈 개발 팀은 PostgreSQL 의 Autovacuum 을 최적화 하며 많은 성능적 이득을 얻을 수 있었습니다. 또한 PostgreSQL 을 운용함에 있어 Autovacuum
+에 대한 개념을 이해하는 것은 매우 중요하다라는 것 역시 깨달을 수 있었습니다. 이는 완전 관리형 데이터베이스(<a href="https://aws.amazon.com/ko/rds/aurora">AWS Aurora</a>,
+<a href="https://aws.amazon.com/ko/rds/">AWS RDS</a> 등) 를 사용한다고 하더라도 전혀 달라지지 않습니다.<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup></p>
+<p>제공하는 서비스마다 데이터베이스가 운용되는 환경이 천차만별이므로 이렇게 하면 좋다! 라는 정답도 없기에 Autovacuum 을 꾸준히 모니터링하고 최적화
+하는 것은 매우 중요하다고 생각합니다. 이번 글이 PostgreSQL 을 운용하시는 분들에게 작게나마 도움이 되었으면 합니다.</p>
 <p><a href="https://www.rocketpunch.com/companies/nrise/jobs">우리 팀에 흥미를 가진 개발자를 찾고 있습니다!</a>
 관심 있는 분들의 지원을 기다립니다. :)</p>
 <p>감사합니다.</p>
