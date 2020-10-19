@@ -203,12 +203,14 @@ autovacuum_max_workers 는 변경 시 PostgreSQL 서버의 재시작을 필요�
 <h2 id="vacuum-과-autovacuum-의-차이">Vacuum 과 Autovacuum 의 차이</h2>
 <p>수동 Vacuum 과 Autovacuum 의 가장 큰 차이점은 해당 테이블에 lock 을 유발하는 지 여부입니다. 이 차이가 또 다른 차이를 만들어 내는데요,
 Autovacuum 의 경우 vacuuming 이 꾸준히 잘 수행되고 있다 하더라도 디스크 저장 용량이 줄어들거나 하는 일은 일어나지 않습니다. 그에 반해
-수동으로 Full Vacuum 을 수행할 경우 FSM 을 재설정 하기 때문에 확실한 디스크 저장 용량 감소 효과를 볼 수 있습니다.</p>
-<p>이에 대한 대안으로 <a href="https://reorg.github.io/pg_repack/">pg_repack</a> 이라는 확장 모듈이 있긴 합니다. 이 모듈을 이용해서 특정 테이블을 repack 을 하게 되면
-해당 테이블의 복제본을 새로 생성한 후 테이블을 교체하는 작업을 진행하기 때문에 운용 중인 데이터베이스에서도 사용할 수는 있습니다. 하지만
-repack 을 수행할 때 repack 시작 때와 종료 때 순단현상이 발생하며, repack 진행 중에는 데이터베이스의 리소스가 심각하게 소비됩니다. 말 그대로
-운용 중인 데이터베이스에서 &ldquo;쓸 수 있다&rdquo; 정도이지, pg_repack 을 통해 완전한 무중단으로 테이블을 Reorganize 할 수는 없습니다.
-<a href="https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.html#Appendix.PostgreSQL.CommonDBATasks.pg_repack">AWS RDS 문서</a>
+수동으로 Full Vacuum 을 수행할 경우 FSM 을 재설정 하기 때문에 확실한 디스크 저장 용량 감소 효과를 볼 수 있습니다. 물론 Autovacuum 이 주기적으로
+잘 동작한다면 비록 저장 용량이 줄어들지는 않더라도 불필요하게 용량이 증가되는 것은 확실히 막을 수 있습니다. dead tuple 이 FSM 으로 반환되므로
+해당 공간은 다른 트랜잭션을 통해 재사용이 되기 때문입니다.</p>
+<p>Data Bloat 문제를 Autovacuum 이 근본적으로 해결할 수 없는 것에 대한 대안으로 <a href="https://reorg.github.io/pg_repack/">pg_repack</a> 이라는 확장 모듈이 있긴
+합니다. 이 모듈을 이용해서 특정 테이블을 repack 을 하게 되면 해당 테이블의 복제본을 새로 생성한 후 테이블을 교체하는 작업을 진행하기 때문에 운용 중인
+데이터베이스에서도 사용할 수는 있습니다. 하지만 repack 을 수행할 때 repack 시작 때와 종료 때 순단현상이 발생하며, repack 진행 중에는 데이터베이스의
+리소스가 심각하게 소비됩니다. 말 그대로 운용 중인 데이터베이스에서 &ldquo;쓸 수 있다&rdquo; 정도이지, pg_repack 을 통해 완전한 무중단으로 테이블을 Reorganize 할
+수는 없습니다. <a href="https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.html#Appendix.PostgreSQL.CommonDBATasks.pg_repack">AWS RDS 문서</a>
 에도 pg_repack 에 대한 소개가 나와 있는데 이런 경고가 없는 점은 분명 아쉬운 점입니다.</p>
 <h2 id="마치며">마치며</h2>
 <p>일반적으로 PostgreSQL 을 최초 설치 후에 서버의 CPU, 메모리 사양에 맞추어 캐시나 버퍼 사이즈, 사용할 코어 수 등의 설정을 진행하게 됩니다.
