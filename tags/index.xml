@@ -6,10 +6,6 @@
     <description>Recent content in Tags on NRISE ENGINEERING BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-KR</language>
-    <copyright>&amp;copy; Copyright 2011-{year} NRISE, Inc. All rights reserved.</copyright>
-    
-	<atom:link href="https://nrise.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <copyright>&amp;copy; Copyright 2011-{year} NRISE, Inc. All rights reserved.</copyright><atom:link href="https://nrise.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

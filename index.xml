@@ -7,23 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-KR</language>
     <copyright>&amp;copy; Copyright 2011-{year} NRISE, Inc. All rights reserved.</copyright>
-    <lastBuildDate>Mon, 13 Jan 2020 15:21:05 +0900</lastBuildDate>
-    
-	<atom:link href="https://nrise.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>[번역] 잘가요, 클린 코드(Goodbye, Clean Code)</title>
-      <link>https://nrise.github.io/posts/goodbye-cleancode/</link>
-      <pubDate>Mon, 13 Jan 2020 15:21:05 +0900</pubDate>
-      
-      <guid>https://nrise.github.io/posts/goodbye-cleancode/</guid>
-      <description>최근 Dan Abramov 가 최근 자신의 블로그에 &amp;ldquo;Goodbye, Clean Code&amp;rdquo; 를 발행 하였습니다. 저는 이 글이 번역할 만한 가치가 있다고 생각하여 한국어로 번역을 하게 되었습니다. 도움을 주신 Glen 님께 감사의 말을 전합니다.
-2020.01.20 추가: 원문에 번역된 한글 문서가 업로드 되었습니다. 해당 본문을 참고하시는 것을 추천합니다.
- 늦은 저녁이었습니다.
-나의 동료가 방금 일주일 동안 작성한 코드를 체크 인 하였습니다. 우리는 그래픽 편집기 캔버스를 만들고 있었고, 가장자리의 작은 손잡이를 드래그하여 직사각형이나 타원형 같은 모양을 리사이즈 하는 기능을 구현하였습니다.</description>
-    </item>
-    
+    <lastBuildDate>Thu, 09 Jan 2020 11:57:04 +0900</lastBuildDate><atom:link href="https://nrise.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>빠르고 안정적인 앱 배포의 노하우(3) - 의사 소통</title>
       <link>https://nrise.github.io/posts/communication/</link>
@@ -134,8 +118,8 @@ Hosting 모씨는 AWS EC2 를 사용합니다. 저희가 상주하는 곳은 도
       <pubDate>Fri, 06 Feb 2015 00:00:00 +0000</pubDate>
       
       <guid>https://nrise.github.io/posts/moci-anonymous-and-episode/</guid>
-      <description>#1 &amp;lsquo;익명&amp;rsquo; 에 대한 많은 이야기가 있습니다. 국내에서도 이미 인터넷 실명제로 인해 인터넷 서비스의 익명에 대한 많은 논의가 있었습니다. 그 결과로 2012년 8월, 인터넷 실명제는 결국 위헌으로 판결이 났지만, 국내에서는 여러가지 이유로 &amp;lsquo;익명&#39;이라는 단어는 많은 이에게 부정적인 단어로 인식되고 있습니다.
-사실, &amp;lsquo;익명&#39;의 역사는 꽤 오래되었습니다. 대표적인 역사적 사례만 보더라도, &amp;lsquo;근대철학의 아버지&amp;rsquo; 데카르트와 &amp;lsquo;팡세&#39;의 저자, 파스칼은 세상의 시선을 떠나 그들의 생각을 자유롭게 표현하고자 어떤 책들은 익명으로 출판하기도 하였습니다.
+      <description>#1 &amp;lsquo;익명&amp;rsquo; 에 대한 많은 이야기가 있습니다. 국내에서도 이미 인터넷 실명제로 인해 인터넷 서비스의 익명에 대한 많은 논의가 있었습니다. 그 결과로 2012년 8월, 인터넷 실명제는 결국 위헌으로 판결이 났지만, 국내에서는 여러가지 이유로 &amp;lsquo;익명&amp;rsquo;이라는 단어는 많은 이에게 부정적인 단어로 인식되고 있습니다.
+사실, &amp;lsquo;익명&amp;rsquo;의 역사는 꽤 오래되었습니다. 대표적인 역사적 사례만 보더라도, &amp;lsquo;근대철학의 아버지&amp;rsquo; 데카르트와 &amp;lsquo;팡세&amp;rsquo;의 저자, 파스칼은 세상의 시선을 떠나 그들의 생각을 자유롭게 표현하고자 어떤 책들은 익명으로 출판하기도 하였습니다.
 또한 굳이 먼 시간의 사건을 찾지 않더라도 2004년, &amp;ldquo;postsecret.</description>
     </item>
     
