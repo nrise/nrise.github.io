@@ -149,10 +149,10 @@ XID 가 임계점에 도달할 경우 강제로 동작하므로 이번 글에서
 <h2 id="autovacuum-최적화">Autovacuum 최적화</h2>
 <p>그럼 이제부터 Autovacuum 의 설정을 조금씩 살펴보며 어떤 식으로 dead tuple 증가를 최대한 억제할 수 있는지 알아보도록 하겠습니다.</p>
 <h3 id="1-autovacuum_vacuum_scale_factor-를-0-으로-설정하기">1. autovacuum_vacuum_scale_factor 를 0 으로 설정하기</h3>
-<p>Autovacuum 을 최적화 하는 가장 간단한 방법은 autovacuum_vacuum_scale_factor 을 0 으로 설정하는 것입니다. 이렇게 설정을 하게 되면
+<p>Autovacuum 을 최적화 하는 가장 간단한 방법은 autovacuum_vacuum_scale_factor 을 0 으로 설정하는 것입니다. 이렇게 설정 하게 되면
 autovacuum_vacuum_threshold 에 지정된 숫자만큼의 dead tuple 이 생성되면 바로 Autovacuum 이 동작하게 되므로 훨씬 일관성 있는 성능을
 확보할 수 있습니다. 하지만 이 설정을 postgresql.conf 에 적용할 경우 모든 테이블에 영향을 미치게 되는 문제가 있습니다. PostgreSQL 은
-해당 옵션을 테이블 별로 설정할 수 있습니다.</p>
+해당 옵션을 테이블 별로 설정할 수 있는 기능을 제공하므로 각 테이블에 맞추어 최적화된 설정을 할 수 있습니다.</p>
 <p>다음 쿼리는 heavy_table 이라는 이름의 테이블의 Autovacuum 설정을 별도로 변경하는 예제입니다. 아래와 같이 설정할 경우,
 해당 테이블은 dead tuple 이 100,000 개가 생성될 때 마다 Autovacuum 이 동작하게 됩니다. 해당 설정은 운용 중인 데이터베이스에서
 진행해도 문제가 없습니다.</p>
