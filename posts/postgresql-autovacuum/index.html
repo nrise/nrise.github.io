@@ -79,7 +79,7 @@ Autovacuum(Vacuum) 에 대해 이해할 필요가 있습니다.</p>
 XID 를 고정(Freeze) 할 때 입니다. 다만 이 경우는 본 글에서 다루고자 하는 주제와 크게 관련이 없으며,
 XID 가 임계점에 도달할 경우 강제로 동작하므로 이번 글에서는 다루지 않겠습니다. Autovacuum 이 동작하는 두 번째 경우는
 바로 임계점 이상으로 늘어난 dead tuple 들을 제거하여 <a href="https://www.postgresql.org/docs/current/storage-fsm.html">FSM(Free Space Map)</a>
-으로 반환하고자 할 때입니다. 그렇다면 Autovacuum 을 이해하기 위해선 dead tuple 이 무엇인지를 알아야 할 필요가 있습니다.</p>
+으로 반환하고자 할 때입니다. 즉, Autovacuum 을 올바르게 이해하기 위해선 dead tuple 이 무엇인지를 알아야 할 필요가 있습니다.</p>
 <h2 id="dead-tuple-이란">Dead Tuple 이란</h2>
 <p>PostgreSQL 에서 모든 데이터는 tuple 이라 불리는 형태로 저장이 됩니다. 그리고 모든 tuple 은 live tuple, dead tuple 로
 나뉘며, 더 이상 사용(참조)되지 않는 tuple 을 dead tuple 이라 부릅니다. 그리고 dead tuple 은 PostgreSQL 이
