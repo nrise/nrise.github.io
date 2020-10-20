@@ -67,7 +67,7 @@
   
   <section id="js-article" class="p-article__body">
     <p>엔라이즈 개발팀은 2014년부터 <a href="https://www.postgresql.org/">PostgreSQL</a> 을 꾸준히 사용해 왔습니다.
-그동안 PostgreSQL 을 사용하면서 얻은 최적화 방법들을 앞으로 작성할 여러 글들을 통해 공유 하고자 합니다.
+그동안 PostgreSQL 을 사용하면서 알게 된 다양한 최적화 방법들을 앞으로 작성할 여러 글들을 통해 공유 하고자 합니다.
 이번 글에서는 PostgreSQL 의 Autovacuum 과 이를 최적화 하는 방법에 대해 이야기 해 보도록 하겠습니다.</p>
 <h2 id="autovacuum-vacuum-에-대해">Autovacuum, Vacuum 에 대해</h2>
 <p>PostgreSQL 에는 <a href="https://www.postgresql.org/docs/current/routine-vacuuming.html">Autovacuum, 혹은 Vacuum</a>
@@ -96,7 +96,7 @@ XID 가 임계점에 도달할 경우 강제로 동작하므로 이번 글에서
 <li>PostgreSQL 의 MVCC 구현체는 update/delete 트랜잭션이 일어날 때 dead tuple 을 남기게 됩니다.</li>
 <li>dead tuple 을 정리하기 위해 Vacuum 이라는 task 가 만들어지게 되었습니다.</li>
 <li>Vacuum 명령어는 수동으로 구동 됩니다. 그리고 Vacuum 이 수행중일 때 해당 테이블은 lock 이 걸리며 모든 트랜잭이 거부됩니다.</li>
-<li>위와 같은 이유로 테이블에 lock 을 걸지 않으면서, 정기적으로, 그리고 자동으로 vacuuming 을 수행하는 Autovacuum 을 필요로 하게 됩니다.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></li>
+<li>위와 같은 이유로 테이블에 lock 을 걸지 않으면서, 정기적으로, 그리고 자동으로 vacuuming 을 수행하는 Autovacuum 을 필요로 하게 됩니다.</li>
 </ul>
 <h2 id="dead-tuple-이-만들어내는-부수효과에-대하여">Dead Tuple 이 만들어내는 부수효과에 대하여</h2>
 <p>위 내용을 조금 거칠게 요약하면 PostgreSQL 에서 update 는 사실 상 insert 와 동일한 동작이라 볼 수 있으며, delete 역시
@@ -112,22 +112,21 @@ XID 가 임계점에 도달할 경우 강제로 동작하므로 이번 글에서
 사용하지 말라는 황당한 판단을 내리는 경우도 발생하며, 결과적으로 select 성능을 더욱 떨어트릴 수 있습니다.</p>
 <p>물론 PostgreSQL 에는 Autovacuum 과 관련된 설정들이 기본으로 되어 있습니다.</p>
 <h2 id="postgresql-배포-철학과-autovacuum">PostgreSQL 배포 철학과 Autovacuum</h2>
-<p>어차피 Autovacuum 이라는게 기본적으로 활성화 되어 있다면, 데이터베이스는 알아서 잘 관리되지 않을까? 라는 생각을 가질 수 있습니다.
+<p>어차피 Autovacuum 이라는게 기본적으로 활성화 되어 있다면, 데이터베이스가 dead tuple 을 알아서 잘 관리하지 않을까? 라는 생각을 가질 수 있습니다.
 그런데 여기에 PostgreSQL 의 배포 철학이 또 다른 문제를 만들어 냅니다. 바로 <a href="https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server">PostgreSQL 의 기본 설정은 최고의 성능을 내기 보다는 가능한
-다양한 기기에서 잘 동작할 수 있도록 매우 보수적으로 잡혀</a> <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> 있다는 점입니다.</p>
+다양한 기기에서 잘 동작할 수 있도록 매우 보수적으로 잡혀</a> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> 있다는 점입니다.</p>
 <p>dead tuple 을 제거하기 위한 vacuuming 동작에 관여하는 설정은 postgresql.conf 파일의 다음 설정들입니다.</p>
 <ul>
 <li>autovacuum_vacuum_threshold: vacuum 이 일어나기 위한 dead tuple 의 최소 갯수입니다. 기본 값은 50 입니다.</li>
 <li>autovacuum_vacuum_scale_factor: vacuum 이 일어나기 위한 live tuple 대비 dead tuple 의 최소 비율입니다. 기본 값은 0.2 입니다.</li>
 </ul>
-<p>위 두 인자를 통해 구한 dead tuple 의 합을 토대로 Autovacuum 동작 여부가 결정됩니다.<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> 예를 들어 A 라는 테이블에 100,000 건의
+<p>위 두 인자를 통해 구한 dead tuple 의 합을 토대로 Autovacuum 동작 여부가 결정됩니다.<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> 예를 들어 A 라는 테이블에 100,000 건의
 레코드가 있을 경우, (100,000 * 0.2) + 50 = 20,050 개의 dead tuple 이 발생할 경우 Autovacuum 이 동작하는 식입니다.</p>
 <p>위 상황들을 종합적으로 정리해 보면 다음과 같습니다.</p>
 <ul>
 <li>Autovacuum 의 동작 여부를 결정하는 인자 중 autovacuum_vacuum_scale_factor 는 특정 테이블의 live tuple 대비 dead tuple 의 비율을 계산합니다.</li>
-<li>비율 기반으로 Autovacuum 이 동작하기 때문에 테이블의 레코드가 커질수록 처리해야 할 dead tuple 의 수가 비율적으로 급증하게 됩니다. 10만건의 레코드를 가진 테이블이라면 2만 개의 dead tuple 이 생성될 때 Autovacuum 이 동작하지만, 1억건의 레코드를 가진 테이블이라면 2천만건의 dead tuple 이 생성 되고서야 Autovacuum 이 동작하게 됩니다.</li>
-<li>dead tuple 이 어느 한도 이상으로 증가하게 될 경우, 그에 맞추어 다양한 추가적인 설정들<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>이 이루어져야 하는데, 그러지 못할 경우 Autovacuum 이 진행되다가 dead tuple 을 모두 처리하지 못하고 중단이 될 수 있습니다.</li>
-<li>결과적으로 Autovacuum 이 동작하는데도 불구하고 dead tuple 이 줄어들지 않거나 오히려 증가하게 될 수 있습니다.</li>
+<li>비율 기반으로 Autovacuum 이 동작하기 때문에 테이블의 레코드가 커질수록 처리해야 할 dead tuple 의 수가 비율적으로 급증하게 됩니다. 만일 10만건의 레코드를 가진 테이블이라면 2만 개의 dead tuple 이 생성될 때 Autovacuum 이 동작하지만, 1억건의 레코드를 가진 테이블이라면 2천만건의 dead tuple 이 생성 되고서야 Autovacuum 이 동작하게 됩니다. 즉 레코드가 늘어날 수록 Autovacuum 의 동작 주기는 점점 길어짐과 동시에 한 번에 처리해야 할 dead tuple 도 많아집니다.</li>
+<li>한 번에 처리해야 할 dead tuple 이 증가하게 될 경우, 그에 맞추어 다양한 추가적인 설정의 최적화를 필요로 합니다. 그러지 못할 경우 Autovacuum 이 진행되다가 dead tuple 을 모두 처리하지 못하고 중단이 될 수 있습니다. 결과적으로 Autovacuum 이 동작하는데도 불구하고 dead tuple 이 줄어들지 않거나 오히려 증가하게 될 수 있습니다.</li>
 <li>이는 저장소의 불필요한 증가 문제와 더불어 데이터베이스 성능의 전반적인 하락으로 이어집니다.</li>
 </ul>
 <p>요약하면 기본으로 설정되어 있는 autovacuum 관련 설정들은 매우 보수적으로 잡혀 있으며, 많은 트랜잭션 + 많은 레코드를 담는 테이블에는 적합하지 않습니다.
@@ -202,11 +201,11 @@ vacuum credit 을 1,000 으로 상향 조정하는 예제입니다. 이렇게 �
 <p>Autovacuum 이 동작할 때, autovacuum_work_mem 에 설정된 메모리를 이용하게 됩니다(해당 값이 -1 일 경우, maintenance_work_mem 을 공유합니다).
 따라서 적절한 maintenance_work_mem 을 설정할 필요가 있는데요, 해당 서버에서 오로지 PostgreSQL 만 동작한다고 가정할 경우 적절한
 maintenance_work_mem 의 값은 서버 메모리 1GB 당 50MB 를 할당하는 것이 일반적입니다만 이는 절대적이지 않습니다.</p>
-<p>autovacuum_max_workers 는 동시에 동작 가능한 Autovacuum 의 프로세스 갯수를 의미합니다. Autovacuum 이 관리해야 할 테이블이 많다면 해당 값을
-늘려야 합니다. 늘리지 않을 경우 XID Freeze 가 제때 실행이 되지 않을 수 있으며 이는 치명적인 결과로 이어질 수 있습니다.<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>
+<p>autovacuum_max_workers 는 동시에 동작 가능한 Autovacuum 의 프로세스 갯수를 정의 합니다. Autovacuum 이 관리해야 할 테이블이 많다면 해당 값을
+늘려야 합니다. 늘리지 않을 경우 XID Freeze 가 제때 실행이 되지 않을 수 있으며 이는 치명적인 결과로 이어질 수 있습니다.<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>
 autovacuum_max_workers 는 변경 시 PostgreSQL 서버의 재시작을 필요로 하므로 Autovacuum 의 동작을 꾸준히 모니터링하며 신중히 변경하는 것이 좋습니다.</p>
 <h2 id="vacuum-과-autovacuum-의-차이">Vacuum 과 Autovacuum 의 차이</h2>
-<p>수동 Vacuum 과 Autovacuum 의 가장 큰 차이점은 해당 테이블에 lock 을 유발하는 지 여부입니다. 이 차이가 또 다른 차이를 만들어 내는데요,
+<p>수동 Vacuum 과 Autovacuum 의 가장 큰 차이점은 해당 테이블에 lock 을 유발하는 지 여부입니다. 그리고 이 점이 또 다른 차이를 만들어 내는데요,
 Autovacuum 의 경우 vacuuming 이 꾸준히 잘 수행되고 있다 하더라도 디스크 저장 용량이 줄어들거나 하는 일은 일어나지 않습니다. 그에 반해
 수동으로 Full Vacuum 을 수행할 경우 FSM 을 재설정 하기 때문에 확실한 디스크 저장 용량 감소 효과를 볼 수 있습니다. 물론 Autovacuum 이 주기적으로
 잘 동작한다면 비록 저장 용량이 줄어들지는 않더라도 불필요하게 용량이 증가되는 것은 확실히 막을 수 있습니다. dead tuple 이 FSM 으로 반환되므로
@@ -222,9 +221,10 @@ Autovacuum 의 경우 vacuuming 이 꾸준히 잘 수행되고 있다 하더라�
 하지만 Autovacuum 과 관련된 설정들은 데이터베이스를 운용하며 발생하는 다양한 환경에 맞추어 설정을 진행해야 하며, 이 와중에 많은 시행착오를 겪게 됩니다.</p>
 <p>엔라이즈 개발팀은 PostgreSQL 의 Autovacuum 을 최적화 하며 많은 성능적 이득을 얻을 수 있었습니다. 또한 PostgreSQL 을 운용함에 있어 Autovacuum
 에 대한 개념을 이해하는 것은 매우 중요하다라는 것 역시 깨달을 수 있었습니다. 이는 완전 관리형 데이터베이스(<a href="https://aws.amazon.com/ko/rds/aurora">AWS Aurora</a>,
-<a href="https://aws.amazon.com/ko/rds/">AWS RDS</a> 등) 를 사용한다고 하더라도 전혀 달라지지 않습니다.<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup></p>
-<p>제공하는 서비스마다 데이터베이스가 운용되는 환경이 천차만별이므로 이렇게 하면 좋다! 라는 정답도 없기에 Autovacuum 을 꾸준히 모니터링하고 최적화
-하는 것은 매우 중요하다고 생각합니다. 이번 글이 PostgreSQL 을 운용하시는 분들에게 작게나마 도움이 되었으면 합니다.</p>
+<a href="https://aws.amazon.com/ko/rds/">AWS RDS</a> 등) 를 사용한다고 하더라도 동일하게 중요하기 때문에 PostgreSQL 을 운용하며 Autovacuum 에 대한 이해도를 높이는
+것은 선택이 아니라 필수라고 생각합니다.<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></p>
+<p>제공하는 서비스마다 데이터베이스가 운용되는 환경이 천차만별이므로 이렇게 하면 좋다! 라는 정답도 없기에  Autovacuum 을 꾸준히 모니터링하고 최적화
+하는 것은 매우 중요한 것 같습니다. 이번 글이 PostgreSQL 을 운용하시는 분들에게 작게나마 도움이 되었으면 합니다.</p>
 <p><a href="https://www.rocketpunch.com/companies/nrise/jobs">우리 팀에 흥미를 가진 개발자를 찾고 있습니다!</a>
 관심 있는 분들의 지원을 기다립니다. :)</p>
 <p>감사합니다.</p>
@@ -237,22 +237,16 @@ Autovacuum 의 경우 vacuuming 이 꾸준히 잘 수행되고 있다 하더라�
 <a href="https://www.postgresql.org/docs/current/routine-vacuuming.html">Routine Vacuuming</a> 항목을 참고하시기 바랍니다. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p>Autovacuum 과 Full Vacuum 은 동작상 약간의 차이가 있으나 이 글에서는 자세히 다루지 않습니다. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>&ldquo;PostgreSQL ships with a basic configuration tuned for wide compatibility rather than performance.&rdquo; - &ldquo;PostgreSQL 은 성능 보다는 광범위한 호환성을 위해 조정 된 기본 설정과 함께 제공 됩니다.&rdquo; <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3" role="doc-endnote">
-<p>&ldquo;PostgreSQL ships with a basic configuration tuned for wide compatibility rather than performance.&rdquo; - &ldquo;PostgreSQL 은 성능 보다는 광범위한 호환성을 위해 조정 된 기본 설정과 함께 제공 됩니다.&rdquo; <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://github.com/postgres/postgres/blob/master/src/backend/postmaster/autovacuum.c#L2954">https://github.com/postgres/postgres/blob/master/src/backend/postmaster/autovacuum.c#L2954</a> <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:4" role="doc-endnote">
-<p><a href="https://github.com/postgres/postgres/blob/master/src/backend/postmaster/autovacuum.c#L2954">https://github.com/postgres/postgres/blob/master/src/backend/postmaster/autovacuum.c#L2954</a> <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>XID 의 여유 값이 100만 이하로 줄어들 경우 해당 테이블의 모든 트랜잭션을 거부하며 수동으로 Vacuuming 을 하기 전까지 트랜잭션을 허용하지 않습니다. <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:5" role="doc-endnote">
-<p>maintenance_work_mem(혹은 autovacuum_work_mem), autovacuum_vacuum_cost_limit, autovacuum_vacuum_cost_delay 등등 다양한 인자들을 기반으로 Autovacuum 의 동작 시간이 결정됩니다. <a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-<li id="fn:6" role="doc-endnote">
-<p>XID 의 여유 값이 100만 이하로 줄어들 경우 해당 테이블의 모든 트랜잭션을 거부하며 수동으로 Vacuuming 을 하기 전까지 트랜잭션을 허용하지 않습니다. <a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-<li id="fn:7" role="doc-endnote">
-<p>완전 관리형 서비스라 하더라도 Autovacuum 과 관련된 설정은 기본 설정에서 크게 벗어나지 않습니다. <a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>완전 관리형 서비스라 하더라도 Autovacuum 과 관련된 설정은 기본 설정에서 크게 벗어나지 않습니다. <a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
