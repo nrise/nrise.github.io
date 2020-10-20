@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
   
-  <title>PostgreSQL 튜닝 - Autovacuum 최적화 하기</title>
-  <meta property="og:title" content="PostgreSQL 튜닝 - Autovacuum 최적화 하기" />
-  <meta name="twitter:title" content="PostgreSQL 튜닝 - Autovacuum 최적화 하기" />
+  <title>PostgreSQL 튜닝 - Autovacuum 최적화에 대하여</title>
+  <meta property="og:title" content="PostgreSQL 튜닝 - Autovacuum 최적화에 대하여" />
+  <meta name="twitter:title" content="PostgreSQL 튜닝 - Autovacuum 최적화에 대하여" />
   
 
   
@@ -53,7 +53,7 @@
 
 <article class="p-article">
   <header>
-    <h1>PostgreSQL 튜닝 - Autovacuum 최적화 하기</h1>
+    <h1>PostgreSQL 튜닝 - Autovacuum 최적화에 대하여</h1>
     <div>
       <div class="c-time">
         Posted on
@@ -67,50 +67,50 @@
   
   <section id="js-article" class="p-article__body">
     <p>엔라이즈 개발팀은 2014년부터 <a href="https://www.postgresql.org/">PostgreSQL</a> 을 꾸준히 사용해 왔습니다.
-그동안 PostgreSQL 을 사용하면서 배운 최적화 방법들에 대해 앞으로 작성할 여러 글들을 통해 공유할 예정입니다.
-오늘은 PostgreSQL 의 Autovacuum 과 Autovacuum 을 최적화 하는 방법에 대해 이야기 해 보고자 합니다.</p>
+그동안 PostgreSQL 을 사용하면서 얻은 최적화 방법들을 앞으로 작성할 여러 글들을 통해 공유 하고자 합니다.
+이번 글에서는 PostgreSQL 의 Autovacuum 과 Autovacuum 을 최적화 하는 방법에 대해 이야기 해 보도록 하겠습니다.</p>
 <h2 id="autovacuum-vacuum-에-대해">Autovacuum, Vacuum 에 대해</h2>
 <p>PostgreSQL 은 <a href="https://www.postgresql.org/docs/current/routine-vacuuming.html">Autovacuum, 혹은 Vacuum</a>
 이라는 개념이 있습니다. 이는 Oracle, MariaDB(MySQL), SQLSERVER 등에는 존재하지 않는 개념이기 때문에 처음
 PostgreSQL 을 접하시는 분들은 Vacuum 과 관련된 설정들을 소홀히 하다가 데이터베이스의 트랜잭션이 증가하였을
-때 예상밖의 느린 성능을 겪게 될 수 있습니다. 따라서 PostgreSQL 의 Autovacuum(Vacuum) 에 대해 명확히 이해할 필요가 있습니다.</p>
+때 예상밖의 느린 성능을 겪게 될 수 있습니다. 따라서 PostgreSQL 을 안정적으로 운용하기 위해서는 반드시
+Autovacuum(Vacuum) 에 대해 이해할 필요가 있습니다.</p>
 <p>PostgreSQL 의 Autovacuum 은 크게 두 가지 상황에서 동작합니다.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 그 중 하나는 XID wraparound 를 방지하기 위해
-XID 를 고정(Freeze) 할 때 입니다. 이 경우는 본 글에서 다루고자 하는 주제와 크게 관련이 없으며,
+XID 를 고정(Freeze) 할 때 입니다. 다만 이 경우는 본 글에서 다루고자 하는 주제와 크게 관련이 없으며,
 XID 가 임계점에 도달할 경우 강제로 동작하므로 이번 글에서는 다루지 않겠습니다. Autovacuum 이 동작하는 두 번째 경우는
-바로 dead tuple 이 임계점 이상으로 늘어났을 때 dead tuple 들을 제거하여
-<a href="https://www.postgresql.org/docs/current/storage-fsm.html">FSM(Free Space Map)</a>
-으로 반환하고자 할 때입니다. 즉 우리는 PostgreSQL 에서 dead tuple 이 무엇인지를 알 필요가 있습니다.</p>
-<h3 id="dead-tuple-이란">Dead Tuple 이란</h3>
+바로 임계점 이상으로 늘어난 dead tuple 들을 제거하여 <a href="https://www.postgresql.org/docs/current/storage-fsm.html">FSM(Free Space Map)</a>
+으로 반환하고자 할 때입니다. 그렇다면 Autovacuum 을 이해하기 위해선 dead tuple 이 무엇인지를 알아야 할 필요가 있습니다.</p>
+<h2 id="dead-tuple-이란">Dead Tuple 이란</h2>
 <p>PostgreSQL 에서 모든 데이터는 tuple 이라 불리는 형태로 저장이 됩니다. 그리고 모든 tuple 은 live tuple, dead tuple 로
 나뉘며, 더 이상 사용(참조)되지 않는 tuple 을 dead tuple 이라 부릅니다. 그리고 dead tuple 은 PostgreSQL 이
 <a href="https://en.wikipedia.org/wiki/Multiversion_concurrency_control">MVCC</a> 를 구현한 방법으로 인해 발생합니다.</p>
-<p>예를 들어 특정 column 혹은 row 를 업데이트하는 트랜잭션이 수행될 경우 PostgreSQL 은 MVCC 지원을 위해 다음과 같이 동작합니다.</p>
+<p>만일 특정 column 혹은 row 를 업데이트하는 트랜잭션이 수행될 경우 PostgreSQL 은 MVCC 지원을 위해 다음과 같이 동작합니다.</p>
 <ol>
 <li>FSM 에 여유가 있는지 확인합니다. 없으면 FSM 을 추가적으로 확보합니다.</li>
-<li>FSM 의 빈 공간에 업데이트 될 데이터를 기록합니다. 새로운 tuple 이 추가 됩니다.</li>
+<li>FSM 의 빈 공간에 업데이트 될 데이터를 기록합니다. 이 떄 새로운 tuple 이 추가 됩니다.</li>
 <li>기록이 완료되면, 기존 column(혹은 row) 를 가리키는 포인터를 새로 기록된 tuple 로 변경합니다.</li>
-<li>업데이트 이전 정보가 기록된 공간은 더 이상 참조가 되지 않게 됩니다.(dead tuple)</li>
+<li>업데이트 이전 정보가 기록된 공간은 더 이상 참조가 되지 않게 됩니다. 이 참조가 되지 않는 tuple 을 dead tuple 이라 부릅니다.</li>
 </ol>
 <p>정리하면 다음과 같습니다.</p>
 <ul>
 <li>PostgreSQL 의 MVCC 구현체는 update/delete 트랜잭션이 일어날 때 dead tuple 을 남기게 됩니다.</li>
-<li>이 dead tuple 을 정리하기 위해 Vacuum 이라는 task 가 만들어지게 되었습니다.</li>
+<li>dead tuple 을 정리하기 위해 Vacuum 이라는 task 가 만들어지게 되었습니다.</li>
 <li>Vacuum 명령어는 수동으로 구동 됩니다. 그리고 Vacuum 이 수행중일 때 해당 테이블은 lock 이 걸리며 모든 트랜잭이 거부됩니다.</li>
 <li>위와 같은 이유로 테이블에 lock 을 걸지 않으면서, 정기적으로, 그리고 자동으로 vacuuming 을 수행하는 Autovacuum 을 필요로 하게 됩니다.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></li>
 </ul>
-<h2 id="dead-tuple-이-만들어내는-이슈들에-관하여">Dead Tuple 이 만들어내는 이슈들에 관하여</h2>
+<h2 id="dead-tuple-이-만들어내는-부수효과에-대하여">Dead Tuple 이 만들어내는 부수효과에 대하여</h2>
 <p>위 내용을 조금 거칠게 요약하면 PostgreSQL 에서 update 는 사실 상 insert 와 동일한 동작이라 볼 수 있으며, delete 역시
 수행하더라도 해당 데이터가 저장된 tuple 은 Vacuum 없이는 FSM 으로 반환되지도 않으며, 저장소에서 삭제되지도 않습니다.
 이는 PostgreSQL 에서 Data Bloat 이라고 불리우는, 쉽게 말해 저장소가 무한대로 불어나는 효과를 가져오게 됩니다.
 이는 여러 문제점을 야기합니다.</p>
 <p>가장 큰 문제는 저장 공간이 무한정 늘어나는 점입니다. update/delete 트랜잭션이 자주 일어나면 일어날 수록, 저장공간 사용량은 급속도로 불어납니다.
-그리고 이로 인해 추가적인 문제점이 발생합니다. PostgreSQL 에서 select 트랜잭션을 수행할 경우 live tuple 을 디스크에서 읽어들일 때
-일정한 용량의 chunk 단위로 파일을 읽는데요, 읽어들인 chunk 중간에 dead tuple 이 많이 포함 되어 있을 수록 더 많은 디스크
-탐색을 필요로 하게 되고, 결과적으로 select 트랜잭션의 성능 저하를 가져오게 됩니다. 문제는 여기서 끝나지 않습니다. PostgreSQL 은
-주기적으로 테이블의 통계정보를 갱신하는 작업을 수행하여 이를 통해 최적의 쿼리 계획을 수립합니다. 그런데 과도한 dead tuple 로 인해
-쿼리 성능이 저하되는 경우가 자주 발생할 경우 통계 수집기는 인덱스가 멀쩡히 있음에도 인덱스를 사용하지 말라는 황당한 판단을
-내리는 경우도 발생하며, 결과적으로 select 성능을 더욱 떨어트릴 수 있습니다.</p>
-<p>물론, PostgreSQL 에는 Autovacuum 과 관련된 설정들이 기본으로 되어 있습니다.</p>
+그리고 이로 인해 추가적인 문제점이 발생합니다. PostgreSQL 은 select 트랜잭션을 수행할 경우 live tuple 을 디스크에서 읽어들일 때
+일정한 용량의 chunk 단위로 파일을 읽어 들이게 됩니다. 문제는 읽어들인 chunk 에 정리되지 않은 dead tuple 이 포함 되어 있을 경우
+원하는 live tuple 을 읽기 위해 더 많은 디스크 I/O 가 발생하게 됩니다.  그리고 증가된 디스크 I/O 는 결과적으로 select 트랜잭션의 성능 저하를
+가져오게 됩니다. 문제는 여기서 끝나지 않습니다. PostgreSQL 은 주기적으로 테이블의 통계정보를 갱신하는 작업을 수행하여 이를 통해 최적의 쿼리
+계획을 수립합니다. 그런데 dead tuple 로 인해 쿼리 성능이 저하되는 경우가 자주 발생할 경우 통계 수집기는 인덱스가 멀쩡히 있음에도 인덱스를
+사용하지 말라는 황당한 판단을 내리는 경우도 발생하며, 결과적으로 select 성능을 더욱 떨어트릴 수 있습니다.</p>
+<p>물론 PostgreSQL 에는 Autovacuum 과 관련된 설정들이 기본으로 되어 있습니다.</p>
 <h2 id="postgresql-배포-철학과-autovacuum">PostgreSQL 배포 철학과 Autovacuum</h2>
 <p>어차피 Autovacuum 이라는게 기본적으로 활성화 되어 있다면, 데이터베이스는 알아서 잘 관리되지 않을까? 라는 생각을 가질 수 있습니다.
 그런데 여기에 PostgreSQL 의 배포 철학이 또 다른 문제를 만들어 냅니다. 바로 <a href="https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server">PostgreSQL 의 기본 설정은 최고의 성능을 내기 보다는 가능한
@@ -122,7 +122,7 @@ XID 가 임계점에 도달할 경우 강제로 동작하므로 이번 글에서
 </ul>
 <p>위 두 인자를 통해 구한 dead tuple 의 합을 토대로 Autovacuum 동작 여부가 결정됩니다.<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> 예를 들어 A 라는 테이블에 100,000 건의
 레코드가 있을 경우, (100,000 * 0.2) + 50 = 20,050 개의 dead tuple 이 발생할 경우 Autovacuum 이 동작하는 식입니다.</p>
-<p>이런 상황들을 종합적으로 고려했을 때 발생할 수 있는 문제점은 다음과 같습니다.</p>
+<p>위 상황들을 종합적으로 정리해 보면 다음과 같습니다.</p>
 <ul>
 <li>Autovacuum 의 동작 여부를 결정하는 인자 중 autovacuum_vacuum_scale_factor 는 특정 테이블의 live tuple 대비 dead tuple 의 비율을 계산합니다.</li>
 <li>비율 기반으로 Autovacuum 이 동작하기 때문에 테이블의 레코드가 커질수록 처리해야 할 dead tuple 의 수가 비율적으로 급증하게 됩니다. 10만건의 레코드를 가진 테이블이라면 2만 개의 dead tuple 이 생성될 때 Autovacuum 이 동작하지만, 1억건의 레코드를 가진 테이블이라면 2천만건의 dead tuple 이 생성 되고서야 Autovacuum 이 동작하게 됩니다.</li>
@@ -130,10 +130,11 @@ XID 가 임계점에 도달할 경우 강제로 동작하므로 이번 글에서
 <li>결과적으로 Autovacuum 이 동작하는데도 불구하고 dead tuple 이 줄어들지 않거나 오히려 증가하게 될 수 있습니다.</li>
 <li>이는 저장소의 불필요한 증가 문제와 더불어 데이터베이스 성능의 전반적인 하락으로 이어집니다.</li>
 </ul>
-<p>요약하면 autovacuum 과 관련된 기본 설정은 매우 보수적으로 잡혀 있으며, 많은 트랜잭션 + 많은 레코드를 담는 테이블에는 적합하지 않습니다.
+<p>요약하면 기본으로 설정되어 있는 autovacuum 관련 설정들은 매우 보수적으로 잡혀 있으며, 많은 트랜잭션 + 많은 레코드를 담는 테이블에는 적합하지 않습니다.
 이제부터 하나씩 최적화를 해 보도록 하겠습니다.</p>
 <h2 id="모니터링-하기">모니터링 하기</h2>
-<p>먼저 모니터링 쿼리를 통해 현재 PostgreSQL 의 테이블에 있는 dead tuple / live tuple 의 비율을 구해볼 수 있습니다.</p>
+<p>먼저 모니터링 쿼리를 통해 현재 PostgreSQL 의 테이블에 있는 dead tuple / live tuple 의 비율을 구해볼 수 있습니다.
+참고로 update, delete 가 일어나지 않고 insert 만 수행되는 테이블의 경우 dead tuple 은 사실 상 생기지 않는다고 봐도 됩니다.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#75715e">-- dead tuple 이 1000 개 이상인 테이블의 dead tuple / live tuple 의 비율을 계산하여 출력합니다.
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> relname, n_live_tup, n_dead_tup, n_dead_tup <span style="color:#f92672">/</span> (n_live_tup::float) <span style="color:#66d9ef">as</span> ratio
 <span style="color:#66d9ef">FROM</span> pg_stat_user_tables
@@ -143,26 +144,26 @@ XID 가 임계점에 도달할 경우 강제로 동작하므로 이번 글에서
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#66d9ef">SELECT</span> relname, last_vacuum, last_autovacuum, last_analyze, last_autoanalyze
 <span style="color:#66d9ef">FROM</span> pg_stat_user_tables
 <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> relname <span style="color:#66d9ef">asc</span>;
-</code></pre></div><p>update, delete 가 일어나지 않고 insert 만 수행되는 테이블의 경우 dead tuple 은 사실 상 생기지 않는다고 봐도 됩니다.
-정기적으로 해당 통계 정보를 모니터링 함으로써 트랜잭션이 잦은 테이블의 경우 평균적으로 발생하는 dead tuple 수를 알아낼 수 있으며,
-이는 아래 설명할 최적화 설정에 적용될 수 있습니다.</p>
+</code></pre></div><p>정기적으로 해당 통계 정보를 모니터링 함으로써 트랜잭션이 잦은 테이블의 경우 평균적으로 발생하는 dead tuple 수를 알아낼 수 있으며,
+이는 다음에 설명할 최적화 작업을 진행할 때 참고할 중요한 정보가 될 수 있습니다.</p>
 <h2 id="autovacuum-최적화">Autovacuum 최적화</h2>
 <p>그럼 이제부터 Autovacuum 의 설정을 조금씩 살펴보며 어떤 식으로 dead tuple 증가를 최대한 억제할 수 있는지 알아보도록 하겠습니다.</p>
 <h3 id="1-autovacuum_vacuum_scale_factor-를-0-으로-설정하기">1. autovacuum_vacuum_scale_factor 를 0 으로 설정하기</h3>
 <p>Autovacuum 을 최적화 하는 가장 간단한 방법은 autovacuum_vacuum_scale_factor 를 0 으로 설정하는 것입니다. 이렇게 설정 하게 되면
-autovacuum_vacuum_threshold 에 지정된 숫자만큼의 dead tuple 이 생성되면 바로 Autovacuum 이 동작하게 되므로 훨씬 일관성 있는 성능을
-확보할 수 있습니다. 하지만 이 설정을 postgresql.conf 에 적용할 경우 모든 테이블에 영향을 미치게 되는 문제가 있습니다. PostgreSQL 은
+autovacuum_vacuum_threshold 에 지정된 숫자만큼의 dead tuple 에 따라 Autovacuum 이 동작하게 되므로 훨씬 일관성 있는 성능을
+확보할 수 있습니다. 하지만 이 설정을 postgresql.conf 에 적용할 경우 모든 테이블에 영향을 미치게 되는 문제가 있는데요, 다행히 PostgreSQL 은
 해당 옵션을 테이블 별로 설정할 수 있는 기능을 제공하므로 각 테이블에 맞추어 최적화된 설정을 할 수 있습니다.</p>
-<p>다음 쿼리는 heavy_table 이라는 이름의 테이블의 Autovacuum 설정을 별도로 변경하는 예제입니다. 아래와 같이 설정할 경우,
-해당 테이블은 dead tuple 이 100,000 개가 생성될 때 마다 Autovacuum 이 동작하게 됩니다. 해당 설정은 운용 중인 데이터베이스에서
-진행해도 문제가 없습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> heavy_table <span style="color:#66d9ef">SET</span> (autovacuum_vacuum_scale_factor <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>);
-<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> heavy_table <span style="color:#66d9ef">SET</span> (autovacuum_vacuum_threshold <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>);
-</code></pre></div><p>잦은 update 와 delete 가 발생하면서, 레코드가 많은 테이블의 경우 다음과 같이 설정하는 것은 Autovacuum 을 조금 더 자주 실행되게 만들며,
+<p>다음 쿼리는 huge_table 이라는 이름의 테이블의 Autovacuum 설정을 별도로 변경하는 예제입니다. 아래와 같이 테이블에
+autovacuum_vacuum_scale_factor = 0, autovacuum_vacuum_threshold = 100000 을 설정하게 되면 해당 테이블에 한하여 postgresql.conf 의
+동일한 설정을 override 하게 되고 해당 테이블은 dead tuple 이 100,000 개가 생성될 때 마다 Autovacuum 이 동작하게 됩니다.
+해당 설정은 운용 중인 데이터베이스에서 진행해도 문제가 없습니다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> huge_table <span style="color:#66d9ef">SET</span> (autovacuum_vacuum_scale_factor <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>);
+<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> huge_table <span style="color:#66d9ef">SET</span> (autovacuum_vacuum_threshold <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>);
+</code></pre></div><p>만일 잦은 update 와 delete 가 발생하면서, 레코드가 많은 테이블의 경우 위와 같은 설정은 Autovacuum 을 조금 더 자주 실행되게 만들며,
 결과적으로 dead tuple 이 지나치게 많이 생기는 것을 예방함으로써 디스크 사용 용량 증가를 최대한 억제하고 성능을 조금이라도 개선하는데
 도움이 됩니다.</p>
 <h3 id="2-autovacuum_vacuum_cost_limit-을-증가시키기">2. autovacuum_vacuum_cost_limit 을 증가시키기</h3>
-<p>postgresql.conf 에 autovacuum_vacuum_cost_limit 이라는 설정이 있습니다. 이는 다른 설정들과 엮여서 복합적으로 동작하며, Autovacuum 이
+<p>postgresql.conf 에는 autovacuum_vacuum_cost_limit 이라는 설정이 있습니다. 이는 다른 설정들과 함께 복합적으로 동작하며, Autovacuum 이
 한 번 동작할 때의 동작 시간을 결정하게 됩니다. vacuum_cost 와 관련된 기본 설정은 다음과 같습니다.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vacuum_cost_delay <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
 vacuum_cost_page_hit <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
@@ -185,20 +186,20 @@ autovacuum_vacuum_cost_limit <span style="color:#f92672">=</span> -1
 값이기 때문에 테이블 별로 별도 설정이 가능한 autovacuum_vacuum_cost_limit 값을 변경하는 것을 추천합니다. 다음 예제 쿼리는 특정 테이블의
 vacuum credit 을 1,000 으로 상향 조정하는 예제입니다. 이렇게 설정할 경우 기본 설정보다 약 5배 많은 vacumming 을 한 번에 처리하게 됩니다.
 해당 설정 역시 운용 중인 데이터베이스에서 진행해도 문제가 없습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> heavy_table <span style="color:#66d9ef">SET</span> (autovacuum_vacuum_cost_limit <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> huge_table <span style="color:#66d9ef">SET</span> (autovacuum_vacuum_cost_limit <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>);
 </code></pre></div><h3 id="3-autovacuum_analyze_scale_factor-을-테이블-별로-별도-설정하기">3. autovacuum_analyze_scale_factor 을 테이블 별로 별도 설정하기</h3>
 <p>PostgreSQL 은 Autovacuum 데몬을 통해 주기적으로 분석 데이터를 수집합니다. 이 분석 데이터를 기반으로 해당 테이블에 select 쿼리를 수행할 때의
 최적의 실행 계획을 수립하게 되는데요, 이 역시 dead tuple 의 존재가 분석 데이터에 좋지 않은 영향을 끼칠 수 있으므로 가능하면 autovacuum_vacuum_scale_factor
 및 autovacuum_vacuum_threshold 와 동일한 값으로 설정해 주도록 합니다. 이 값 역시 테이블 별로 설정이 가능하며, 운용 중인 데이터베이스에서
 진행해도 문제가 없습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> heavy_table <span style="color:#66d9ef">SET</span> (autovacuum_analyze_scale_factor <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>);
-<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> heavy_table <span style="color:#66d9ef">SET</span> (autovacuum_analyze_threshold <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> huge_table <span style="color:#66d9ef">SET</span> (autovacuum_analyze_scale_factor <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>);
+<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> huge_table <span style="color:#66d9ef">SET</span> (autovacuum_analyze_threshold <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>);
 </code></pre></div><h3 id="4-autovacuum_work_mem-autovacuum_max_workers-의-최적화">4. autovacuum_work_mem, autovacuum_max_workers 의 최적화</h3>
 <p>Autovacuum 이 동작할 때, autovacuum_work_mem 에 설정된 메모리를 이용하게 됩니다(해당 값이 -1 일 경우, maintenance_work_mem 을 공유합니다).
 따라서 적절한 maintenance_work_mem 을 설정할 필요가 있는데요, 해당 서버에서 오로지 PostgreSQL 만 동작한다고 가정할 경우 적절한
 maintenance_work_mem 의 값은 서버 메모리 1GB 당 50MB 를 할당하는 것이 일반적입니다만 이는 절대적이지 않습니다.</p>
 <p>autovacuum_max_workers 는 동시에 동작 가능한 Autovacuum 의 프로세스 갯수를 의미합니다. Autovacuum 이 관리해야 할 테이블이 많다면 해당 값을
-늘려야 합니다. 늘리지 않을 경우 XID Freeze 가 제때 실행이 되지 않을 수 있으며 이는 재앙적인 결과로 이어질 수 있습니다.<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>
+늘려야 합니다. 늘리지 않을 경우 XID Freeze 가 제때 실행이 되지 않을 수 있으며 이는 치명적인 결과로 이어질 수 있습니다.<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>
 autovacuum_max_workers 는 변경 시 PostgreSQL 서버의 재시작을 필요로 하므로 Autovacuum 의 동작을 꾸준히 모니터링하며 신중히 변경하는 것이 좋습니다.</p>
 <h2 id="vacuum-과-autovacuum-의-차이">Vacuum 과 Autovacuum 의 차이</h2>
 <p>수동 Vacuum 과 Autovacuum 의 가장 큰 차이점은 해당 테이블에 lock 을 유발하는 지 여부입니다. 이 차이가 또 다른 차이를 만들어 내는데요,
@@ -215,7 +216,7 @@ Autovacuum 의 경우 vacuuming 이 꾸준히 잘 수행되고 있다 하더라�
 <h2 id="마치며">마치며</h2>
 <p>일반적으로 PostgreSQL 을 최초 설치 후에 서버의 CPU, 메모리 사양에 맞추어 캐시나 버퍼 사이즈, 사용할 코어 수 등의 설정을 진행하게 됩니다.
 하지만 Autovacuum 과 관련된 설정들은 데이터베이스를 운용하며 발생하는 다양한 환경에 맞추어 설정을 진행해야 하며, 이 와중에 많은 시행착오를 겪게 됩니다.</p>
-<p>엔라이즈 개발 팀은 PostgreSQL 의 Autovacuum 을 최적화 하며 많은 성능적 이득을 얻을 수 있었습니다. 또한 PostgreSQL 을 운용함에 있어 Autovacuum
+<p>엔라이즈 개발팀은 PostgreSQL 의 Autovacuum 을 최적화 하며 많은 성능적 이득을 얻을 수 있었습니다. 또한 PostgreSQL 을 운용함에 있어 Autovacuum
 에 대한 개념을 이해하는 것은 매우 중요하다라는 것 역시 깨달을 수 있었습니다. 이는 완전 관리형 데이터베이스(<a href="https://aws.amazon.com/ko/rds/aurora">AWS Aurora</a>,
 <a href="https://aws.amazon.com/ko/rds/">AWS RDS</a> 등) 를 사용한다고 하더라도 전혀 달라지지 않습니다.<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup></p>
 <p>제공하는 서비스마다 데이터베이스가 운용되는 환경이 천차만별이므로 이렇게 하면 좋다! 라는 정답도 없기에 Autovacuum 을 꾸준히 모니터링하고 최적화
