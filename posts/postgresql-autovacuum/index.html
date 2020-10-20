@@ -162,7 +162,11 @@ autovacuum_vacuum_scale_factor = 0, autovacuum_vacuum_threshold = 100000 을 설
 </code></pre></div><p>만일 잦은 update 와 delete 가 발생하면서, 레코드가 많은 테이블의 경우 위와 같은 설정은 Autovacuum 을 조금 더 자주 실행되게 만들며,
 결과적으로 dead tuple 이 지나치게 많이 생기는 것을 예방함으로써 디스크 사용 용량 증가를 최대한 억제하고 성능을 조금이라도 개선하는데
 도움이 됩니다.</p>
-<h3 id="2-autovacuum_vacuum_cost_limit-을-증가시키기">2. autovacuum_vacuum_cost_limit 을 증가시키기</h3>
+<p>위와 같이 설정한 테이블의 스키마 정보는 다음 \d+ 명령어를 통해 확인할 수 있습니다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL">db<span style="color:#f92672">=&gt;</span> <span style="color:#960050;background-color:#1e0010">\</span>d<span style="color:#f92672">+</span> huge_table
+...
+<span style="color:#66d9ef">Options</span>: autovacuum_vacuum_scale_factor<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>, autovacuum_vacuum_threshold<span style="color:#f92672">=</span><span style="color:#ae81ff">100000</span>
+</code></pre></div><h3 id="2-autovacuum_vacuum_cost_limit-을-증가시키기">2. autovacuum_vacuum_cost_limit 을 증가시키기</h3>
 <p>postgresql.conf 에는 autovacuum_vacuum_cost_limit 이라는 설정이 있습니다. 이는 다른 설정들과 함께 복합적으로 동작하며, Autovacuum 이
 한 번 동작할 때의 동작 시간을 결정하게 됩니다. vacuum_cost 와 관련된 기본 설정은 다음과 같습니다.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vacuum_cost_delay <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
