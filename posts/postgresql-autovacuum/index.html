@@ -97,7 +97,7 @@ XID 가 임계점에 도달할 경우 강제로 동작하므로 이번 글에서
 <ul>
 <li>PostgreSQL 의 MVCC 구현체는 update/delete 트랜잭션이 일어날 때 dead tuple 을 남기게 됩니다.</li>
 <li>dead tuple 을 정리하기 위해 Vacuum 이라는 task 가 만들어지게 되었습니다.</li>
-<li>Vacuum 명령어는 수동으로 구동 됩니다. 그리고 Vacuum 이 수행중일 때 해당 테이블은 lock 이 걸리며 모든 트랜잭이 거부됩니다.</li>
+<li>Vacuum 명령어는 수동으로 구동 됩니다. 그리고 Vacuum 이 수행중일 때 해당 테이블은 lock 이 걸리며 모든 트랜잭션이 거부됩니다.</li>
 <li>위와 같은 이유로 테이블에 lock 을 걸지 않으면서, 정기적으로, 그리고 자동으로 vacuuming 을 수행하는 Autovacuum 을 필요로 하게 됩니다.</li>
 </ul>
 <h2 id="dead-tuple-이-만들어내는-부수효과에-대하여">Dead Tuple 이 만들어내는 부수효과에 대하여</h2>
@@ -116,7 +116,8 @@ XID 가 임계점에 도달할 경우 강제로 동작하므로 이번 글에서
 <h2 id="postgresql-배포-철학과-autovacuum">PostgreSQL 배포 철학과 Autovacuum</h2>
 <p>어차피 Autovacuum 이라는게 기본적으로 활성화 되어 있다면, 데이터베이스가 dead tuple 을 알아서 잘 관리하지 않을까? 라는 생각을 가질 수 있습니다.
 그런데 여기에 PostgreSQL 의 배포 철학이 또 다른 문제를 만들어 냅니다. 바로 <a href="https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server">PostgreSQL 의 기본 설정은 최고의 성능을 내기 보다는 가능한
-다양한 기기에서 잘 동작할 수 있도록 매우 보수적으로 잡혀</a> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> 있다는 점입니다.</p>
+다양한 기기에서 잘 동작할 수 있도록 매우 보수적으로 잡혀</a> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> 있다는 점입니다.
+따라서 우리는 PostgreSQL 의 Autovacuum 과 관련된 설정들을 알아보고, 필요에 따라 이를 최적화 할 필요가 있습니다.</p>
 <p>dead tuple 을 제거하기 위한 vacuuming 동작에 관여하는 설정은 postgresql.conf 파일의 다음 설정들입니다.</p>
 <ul>
 <li>autovacuum_vacuum_threshold: vacuum 이 일어나기 위한 dead tuple 의 최소 갯수입니다. 기본 값은 50 입니다.</li>
