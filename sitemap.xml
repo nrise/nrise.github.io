@@ -4,16 +4,21 @@
   
   <url>
     <loc>https://nrise.github.io/</loc>
-    <lastmod>2020-10-18T17:34:58+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://nrise.github.io/posts/postgresql-autovacuum/</loc>
-    <lastmod>2020-10-18T17:34:58+09:00</lastmod>
+    <lastmod>2020-11-02T10:36:56+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://nrise.github.io/posts/</loc>
+    <lastmod>2020-11-02T10:36:56+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nrise.github.io/posts/1year-of-nrise-by-data/</loc>
+    <lastmod>2020-11-02T10:36:56+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nrise.github.io/posts/postgresql-autovacuum/</loc>
     <lastmod>2020-10-18T17:34:58+09:00</lastmod>
   </url>
   
