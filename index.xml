@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-KR</language>
     <copyright>&amp;copy; Copyright 2011-{year} NRISE, Inc. All rights reserved.</copyright>
-    <lastBuildDate>Mon, 02 Nov 2020 10:36:56 +0900</lastBuildDate><atom:link href="https://nrise.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 19 Jan 2021 16:40:51 +0900</lastBuildDate><atom:link href="https://nrise.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>제품 팀 2020년 회고</title>
+      <link>https://nrise.github.io/posts/retrospective-2020/</link>
+      <pubDate>Tue, 19 Jan 2021 16:40:51 +0900</pubDate>
+      
+      <guid>https://nrise.github.io/posts/retrospective-2020/</guid>
+      <description>들어가며 2021년의 첫 달이 벌써 절반을 훌쩍 넘었습니다. 뒤늦게나마 지난 2020년 엔라이즈 제품 팀이 어떤 일들을 진행해 왔는지를 되돌아 보는 시간을 가져 보고자 합니다.
+코로나바이러스감염증-19 2020년을 이야기 하며 코로나바이러스감염증-19(이하 COVID-19) 를 빼놓을 수는 없을 것 같습니다. 지난 한 해 COVID-19 로 엔라이즈 제품 팀에도 많은 변화가 있었습니다. 엔라이즈 제품 팀은 COVID-19 초기에는 속도감 있는 제품 개발을 위해 회사에서 방역 지침을 준수해 가며 업무를 진행해 왔었습니다만, 2020년 7월 부터는 제품 팀 전원의 원격근무가 구성원들의 건강을 지킬 수 있는 방법이라고 생각하게 되었습니다.</description>
+    </item>
+    
     <item>
       <title>데이터 분석가로 일한 엔라이즈에서의 1년</title>
       <link>https://nrise.github.io/posts/1year-of-nrise-by-data/</link>
