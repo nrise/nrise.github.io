@@ -7,3 +7,13 @@ article section a, body footer a {
 		font-size: 3.3rem;
 	}
 }
+
+/* 상단 타이틀 */
+.p-title {
+	font-weight: bold;
+}
+
+.c-article__title,
+.p-article > header > h1 {
+	font-weight: 500;
+}
