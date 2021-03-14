@@ -82,10 +82,11 @@ article section a, body footer a {
 	font-weight: 500;
 	margin-left: 12px;
 	padding-top: 2px;
+	color: #000;
 }
 @media (max-width: 600px) {
 	.logo-title-text {
-		font-size: 2.2rem;
+		font-size: 2rem;
 		width: 150px;
 	}
 }
