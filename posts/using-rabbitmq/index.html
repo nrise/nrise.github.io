@@ -25,7 +25,7 @@
   
   
   
-  <meta name="generator" content="Hugo 0.76.5" /><link rel="stylesheet" href="https://nrise.github.io/css/style.css" />
+  <meta name="generator" content="Hugo 0.88.1" /><link rel="stylesheet" href="https://nrise.github.io/css/style.css" />
   
   <link rel="stylesheet" href="https://nrise.github.io/css/custom.css">
   <link rel='icon' type='image/x-icon' href="https://nrise.github.io/images/favicon.ico" />
@@ -175,7 +175,7 @@ MOCI 와 WIPPY 모두 네이티브 앱이기에 당장은 필요 없을지라도
 <p>이 예제 코드는 AMQP 서버에 연결하여 서버의 메시지를 기다리는 것을 구현한 간단한 안드로이드 예제입니다.(iOS 도 크게 다르지 않습니다.)
 주의할 점은 앱의 생명주기에 맞춰서 클라이언트의 AMQP 연결도 같이 활성/비활성화 처리가 되어야 하며,
 중복 연결을 방지하기 위해 Singleton Pattern 으로 설계하는 것이 좋습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#75715e">// AMQPManager.kt
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#75715e">// AMQPManager.kt
 </span><span style="color:#75715e">// Android Client Example
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> com.rabbitmq.client.*
 <span style="color:#66d9ef">import</span> org.jetbrains.anko.doAsync
@@ -209,7 +209,7 @@ MOCI 와 WIPPY 모두 네이티브 앱이기에 당장은 필요 없을지라도
 </code></pre></div><p>다음 코드는 queue &ldquo;user_0001&rdquo; 을 Subscribe 하고 있는 사용자에게 &lsquo;hello, client!&rsquo; 라는
 메시지를 보내는 Python 예제입니다. 예제 코드를 보면 알 수 있듯이 서버는 특정 클라이언트가 어떤 이름의
 exchange 와 queue 를 사용하는지를 알고 있어야 합니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># pika 를 이용한 python 예제입니다.</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># pika 를 이용한 python 예제입니다.</span>
 <span style="color:#f92672">import</span> pika
 
 exchange_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;exchange_001&#39;</span>
@@ -266,18 +266,18 @@ WebRTC 의 경우 최초 두 Peer 가 연결을 하기 위해서는 중개자를
 <ol>
 <li id="fn:1" role="doc-endnote">
 <p>우아한 형제들의 경우 결과적으로 WebSocket 을 선택하였습니다만 비슷한 고민을
-했던 것 같습니다. <a href="http://woowabros.github.io/woowabros/2017/09/12/realtime-service.html">참고</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+했던 것 같습니다. <a href="http://woowabros.github.io/woowabros/2017/09/12/realtime-service.html">참고</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
 <p>&ldquo;Redis is, mostly, a single-threaded server from the POV of commands execution
 (actually modern versions of Redis use threads for different things). It is not designed
 to benefit from multiple CPU cores. People are supposed to launch several Redis instances to
 scale out on several cores if needed. It is not really fair to compare one single Redis
-instance to a multi-threaded data store.&rdquo; - <a href="https://redis.io/topics/benchmarks">원문</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+instance to a multi-threaded data store.&rdquo; - <a href="https://redis.io/topics/benchmarks">원문</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3" role="doc-endnote">
 <p>Erlang 을 흔히 &ldquo;<a href="https://en.wikipedia.org/wiki/Erlang_(programming_language)#cite_note-14">write once, run forever</a>&rdquo;
-한 언어라고 표현하기도 합니다. <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+한 언어라고 표현하기도 합니다.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -359,7 +359,7 @@ instance to a multi-threaded data store.&rdquo; - <a href="https://redis.io/topi
     <p class="p-copyright">
 	Powered by <a href="https://gohugo.io/">hugo</a>.<br />
 	
-        &copy; Copyright 2011-2021 NRISE, Inc. All rights reserved.
+        &copy; Copyright 2011-2022 NRISE, Inc. All rights reserved.
       
     </p>
   </footer>
